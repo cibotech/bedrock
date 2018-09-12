@@ -1,0 +1,19 @@
+$shadow-0: rgba(0, 0, 0, 0.05);
+$shadow: rgba(0, 0, 0, 0.1);
+$shadow-1        : rgba(0, 0, 0, 0.15);
+$shadow-2: rgba(0, 0, 0, 0.2);
+$shadow-3: rgba(0, 0, 0, 0.3);
+
+$reverse-shadow-0: rgba(255, 255, 255, 0.05);
+$reverse-shadow:   rgba(255, 255, 255, 0.1);
+$reverse-shadow-2: rgba(255, 255, 255, 0.2);
+$reverse-shadow-3: rgba(255, 255, 255, 0.3);
+
+$grey     : #919191;
+$darkgrey : #485155;
+$black    : #2f2f2f;
+
+// status colors
+$neutral: $darkgrey;
+$warning: #b58105;
+$danger: #912d2b;

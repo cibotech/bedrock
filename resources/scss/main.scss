@@ -1,0 +1,30 @@
+
+body {
+  font-family: $primary-font;
+  background-color: $body-background;
+  color: $font-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  margin: 0;
+}
+
+a {
+  line-height: 1;
+  text-decoration: none;
+  color: $primary-color;
+  font-weight: 500;
+  &:hover{
+    text-decoration: underline;
+  }
+  @include noselect-pointer();
+}
+
+
+.noselect-pointer{
+  @include noselect-pointer();
+}
+
+.text-center{
+  text-align: center;
+}

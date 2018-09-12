@@ -1,0 +1,21 @@
+.form{
+  .title{
+    display: inline-block;
+    padding: 5px 10px 5px 0px;
+    float: left;
+  }
+
+  &.spread{
+    justify-content: flex-end;
+    input{
+      float: right;
+    }
+    div{
+      float: right;
+    }
+    .title{
+      float: left;
+    }
+  }
+
+}

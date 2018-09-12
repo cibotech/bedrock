@@ -1,0 +1,27 @@
+@import '../colors';
+
+.statistic {
+  display: inline-block;
+  text-align: center;
+  padding: 0 0.5em;
+}
+
+.statistic .label {
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.statistic .value {
+  font-size: 2em; // 16 (root) * 2 = 32px
+  font-weight: 500;
+  line-height: 1;
+  &.success { color: $success-color; }
+  &.warning { color: $warning; }
+  &.danger { color: $danger; }
+}
+
+.statistic .units {
+  padding-left: 0.1rem;
+  font-size: 0.4em; // equal to label's font-size
+  font-weight: normal;
+}

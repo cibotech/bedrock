@@ -1,0 +1,113 @@
+@import "../global";
+
+.calendar{
+  table {
+    border-collapse: collapse;
+    thead{
+      th{
+        font-size: 12px;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-weight: 500;
+          font-size: 12px;
+          text-align: center;
+          border: 1px solid $secondary-color;
+          padding: 6px;
+
+          &.day{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: pointer;
+            transition: background-color 0.1s;
+            &:hover{
+              background-color: $shadow-0;
+            }
+            &.non-month{
+              color: lighten($font-color, 30%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.basic-calendar{
+
+  .month-label{
+    text-align: center;
+    vertical-align: top;
+    flex-grow: 1;
+  }
+  .previous-button{
+    color: $font-color;
+    display: inline-flex;
+    @include noselect-pointer();
+
+  }
+
+  .next-button{
+    color: $font-color;
+    display: inline-flex;
+    float: right;
+    @include noselect-pointer();
+
+  }
+
+  padding:20px;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    thead{
+      th{
+        font-size: 12px;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-weight: 500;
+          font-size: 12px;
+          text-align: center;
+          border: 1px solid $secondary-color;
+          &.day{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: pointer;
+            transition: background-color 0.1s;
+            &:hover{
+              background-color: $shadow-0;
+            }
+            &.non-month{
+              color: $adjacent-font-color;
+            }
+            .aspect-ratio-container{
+              position: relative;
+              padding-top: 100%;
+              .content{
+                position: absolute;
+                top: 0px; right: 0px; bottom: 0px; left: 0px;
+              }
+            }
+            .day-number{
+              text-align: left;
+              padding: 1px 3px 0px 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

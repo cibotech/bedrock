@@ -1,0 +1,64 @@
+@import "../global";
+
+.global-alert-system{
+
+  .alert-container{
+    transition: opacity 0.29s;
+
+    opacity: 1.0;
+    background-color: $card-background;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(50, 50, 93, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    padding: 10px 15px;
+    margin: 10px;
+    position: relative;
+    font-size: 14px;
+    border: 1px solid $line-separator;
+
+    button{
+      position: absolute;
+      right: 5px;
+      top: 2px;
+    }
+
+    &.fade-out{
+      opacity: 0;
+    }
+
+    &.bd-error{
+      button{
+        color: #FFFFFF;
+      }
+
+      color: #FFFFFF;
+      background-color: $error-color;
+    }
+
+    &.bd-success{
+      button{
+        color: #FFFFFF;
+      }
+
+      color: #FFFFFF;
+      background-color: $success-color;
+    }
+  }
+
+  #bottom-left-alerts{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 300px;
+    z-index: 100001;
+  }
+
+  #bottom-right-alerts{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    z-index: 100001;
+  }
+
+
+}

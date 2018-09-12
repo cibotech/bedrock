@@ -1,0 +1,59 @@
+@import "../global";
+
+&.inverse-font{
+  color: $inverse-font-color;
+}
+
+.bd-text{
+
+  font-weight: 400;
+  white-space: nowrap;
+
+  &.medium{
+    font-size: $base-text-size;
+  }
+
+  &.small{
+    font-size: $small-text-size;
+  }
+
+  &.large{
+    font-size: $large-text-size;
+  }
+
+  &.extra-large{
+    font-size: $extra-large-text-size;
+  }
+
+  &.extra-thin{
+    font-weight: 200;
+  }
+
+  &.thin{
+    font-weight: 300;
+  }
+
+  &.bold{
+    font-weight: 500;
+  }
+
+  &.extra-bold{
+    font-weight: 700;
+  }
+
+  &.capitalized{
+    text-transform: capitalize;
+  }
+
+  &.lower-case{
+    text-transform: lowercase;
+  }
+
+  &.upper-case{
+    text-transform: uppercase;
+  }
+
+  &.not-transformed{
+    text-transform: none;
+  }
+}

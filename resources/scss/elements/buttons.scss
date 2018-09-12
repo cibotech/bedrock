@@ -1,0 +1,159 @@
+@import "../global";
+
+
+button {
+  &:focus{
+    outline: none;
+  }
+}
+
+button {
+
+  border: 0px;
+  border-radius: $button-border-raidius;
+
+  padding: $button-base-padding-tb $button-base-padding-lr;
+
+  color: $contrast-with-primary;
+  background-color: $primary-color-button;
+
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+
+  font-size: 14px;
+  line-height: 14px;
+  margin: 5px;
+  &.secondary{
+    background-color: $secondary-color-button;
+    color: $contrast-with-secondary;
+  }
+
+  &:hover{
+    cursor: pointer;
+    box-shadow: 1px 1px 2px 2px $shadow;
+  }
+
+
+  &.mild{
+    box-shadow: 1px 1px 1px 1px $shadow-0;
+    color: $font-color;
+    background-color: $card-background;
+
+    &:hover{
+      cursor: pointer;
+      box-shadow: 1px 1px 1px 1px $shadow;
+    }
+
+    &:active {
+      transition: box-shadow 0.2s;
+      box-shadow: 1px 1px 1px 1px $shadow-0;
+    }
+  }
+
+  &.success{
+    background-color: $success-color;
+    color: #FFFFFF;
+  }
+
+  &.error{
+    background-color: $error-color;
+    color: #FFFFFF;
+  }
+
+  &.repressed{
+    color: $font-color;
+    background-color: transparent;
+    box-shadow: none;
+    transition: background-color 0.1s;
+
+    &:hover{
+      background-color: $shadow;
+    }
+
+    &:active {
+      background-color: $shadow-1;
+    }
+  }
+
+  &:active {
+    transition: box-shadow 0.2s;
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  }
+
+  &.large{
+    padding: ($button-base-padding-tb * 1.5) ($button-base-padding-lr * 1.5);
+  }
+
+  &.small{
+    padding: ($button-base-padding-tb * 0.75) ($button-base-padding-lr * 0.75);
+  }
+
+  &.extra-large{
+    padding: ($button-base-padding-tb * 2) ($button-base-padding-lr * 2);
+  }
+
+  &.round{
+    padding: $button-base-padding-tb;
+    &.small{
+      padding: ($button-base-padding-tb * 0.75);
+    }
+
+    &.large{
+      padding: ($button-base-padding-tb * 1.5);
+    }
+
+    &.extra-large{
+      padding: ($button-base-padding-tb * 2);
+    }
+
+    border-radius: 100px;
+    text-align: center;
+  }
+
+  span{
+    vertical-align: middle;
+  }
+
+  i{
+    vertical-align: middle;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+}
+
+.menu-button{
+
+  display: inline-block;
+  position: relative;
+
+  .absolute-menu-list{
+
+    transition: max-height linear 0.2s;
+    margin-top: -5px;
+    width: auto;
+    overflow: hidden;
+    position: absolute;
+    max-height: 0px;
+    z-index: 999;
+
+    .listItem{
+      padding: 0px;
+    }
+
+    &.show{
+      max-height: 1000px;
+    }
+
+    &.hide{
+      max-height: 0px;
+    }
+
+    &:hover{
+      max-height: 1000px;
+    }
+  }
+
+}

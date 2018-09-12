@@ -1,0 +1,32 @@
+@import "../global";
+
+.drag-drop-upload-inner{
+  position: absolute;
+  &.fullscreen{
+    position: fixed;
+  }
+
+  top:0;
+  right:0;
+  bottom: 0;
+  left: 0;
+
+  z-index: 999;
+
+  transition: background-color linear 0.3s;
+  * {
+    pointer-events: none;
+  }
+
+  &.hide{
+    opacity: 0;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  &.display{
+    opacity: 1.0;
+    background-color: $shadow-3;
+    pointer-events: all;
+  }
+}

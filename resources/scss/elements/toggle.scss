@@ -1,0 +1,124 @@
+@import "../global";
+
+.toggle{
+  $toggle-height: 18px;
+
+  @include noselect-pointer();
+  display: inline-block;
+  line-height: 0;
+  position: relative;
+  $width : 40px;
+  height: $toggle-height;
+  width: $width;
+  margin: 8px;
+
+  $off: -2px;
+  $on: 14px;
+
+  .toggle-indicator{
+    width: $toggle-height - 2px;
+    height: $toggle-height - 2px;
+    background-color: $primary-color;
+    position: absolute;
+    border-radius: 20px;
+    top: 2px;
+    z-index: 3;
+  }
+
+  &.initial-true{
+    .interior-wrapper{
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+    .interior-indicator{
+      width: $width;
+    }
+    .toggle-indicator{
+      left: $width - $on;
+    }
+  }
+
+  &.initial-false{
+    .interior-wrapper{
+      background-color: $adjacent-font-color;
+      border-color: $adjacent-font-color;
+    }
+    .interior-indicator{
+      width: 0px;
+    }
+    .toggle-indicator{
+      left: - $off;
+    }
+  }
+
+  &.true{
+    .interior-wrapper{
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+    .interior-indicator{
+      width: $width;
+    }
+    .toggle-indicator{
+      @include animation('to-true-anim.2s 1');
+      background-color: $primary-color;
+      left: $width - $on;
+    }
+  }
+
+  &.false{
+    .interior-wrapper{
+      background-color: $adjacent-font-color;
+      border-color: $adjacent-font-color;
+    }
+    .interior-indicator{
+      width: 0px;
+    }
+    .toggle-indicator{
+      @include animation('to-false-anim .2s 1');
+      background-color: $contrast-with-primary;
+      left: - $off;
+    }
+  }
+
+  .interior-wrapper{
+    transition: background-color 0.25s, border-color 0.25s;
+    position: absolute;
+    margin: 0;
+    -webkit-appearance: none;
+    width: $width;
+    height: 16px;
+    border-radius: 15px;
+    border: 2px solid $grey;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .interior-indicator{
+    left: 0px;
+    height: 18px;
+    z-index: 1;
+    position: absolute;
+    width: 0px;
+    background-color: transparent;
+    transition: width 0.2s;
+  }
+
+  @include keyframes(to-false-anim) {
+    0%   {
+      left: $width - $on;
+    }
+    100% {
+      left: -$off;
+    }
+  }
+  @include keyframes(to-true-anim) {
+    0%   {
+      left: -$off;
+    }
+    100% {
+      left: $width - $on;
+    }
+  }
+
+}
