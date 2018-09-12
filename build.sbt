@@ -19,7 +19,9 @@ lazy val `bedrock-root` = project
   .in(file("."))
   .aggregate(bedrockJS, bedrockJVM, `bedrock-plots`)
   .settings(
-    publishArtifact := false
+    publishArtifact := false,
+    publish := {},
+    publishLocal := {}
   )
 
 val commonSettings = Seq(
@@ -29,6 +31,19 @@ val commonSettings = Seq(
 
 lazy val sharedLibs = Seq()
 
+lazy val publishSettings = Seq(
+  bintrayOrganization := Some("cibotech"),
+  bintrayRepository := "public",
+  bintrayPackageLabels := Seq("scala", "ui"),
+  licenses += ("BSD 3-Clause", url("https://opensource.org/licenses/BSD-3-Clause"))
+)
+
+lazy val licenseSettings = Seq(
+  homepage := Some(url("https://www.github.com/cibotech/bedrock")),
+  startYear := Some(2018),
+  description := "A Scala combinator-based ui library.",
+  headerLicense := Some(HeaderLicense.BSD3Clause("2018", "CiBO Technologies, Inc."))
+)
 
 lazy val scalaJSReact = Seq(
   "com.github.japgolly.scalajs-react" %%%! "core" % "1.1.0",
