@@ -32,13 +32,14 @@ package com.cibo.uidocumentation.example
 
 import com.cibo.ui.Padding
 import com.cibo.ui.ReactGridStrict.{column, row}
-import com.cibo.ui.elements.{Button}
+import com.cibo.ui.elements.Button
 import com.cibo.ui.input.Form._
 import com.cibo.ui.input.{CheckBoxInput, TextInput, ToggleInput}
 import com.cibo.ui.pane.{Pane, PaneHeader}
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 import com.cibo.ui._
+import com.cibo.uidocumentation.SourceLink
 object MetaComponentExample {
 
   case class Props()
@@ -80,7 +81,9 @@ object MetaComponentExample {
               Button("click me".medium).small.margin(Some(Margin(5, 0, 0, 0)))
                 .onClick(Callback { println("clicked") })
             )
-          )
+          ),
+          SourceLink("MetaComponentExample.scala")
+
         )
       )
     }

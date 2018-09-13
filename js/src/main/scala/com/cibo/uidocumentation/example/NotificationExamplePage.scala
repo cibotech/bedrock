@@ -95,12 +95,14 @@ object NotificationExamplePage {
               CodeExample(
                 "scala",
                 s"""
-                   |  Button("Info alert").apply(^.onClick -->
-                   |    GlobalAlertSystem.pushToSnackbar(Snack(s"Info alert ${System.currentTimeMillis()}"))),
-                   |  Button("Error alert").error.apply(^.onClick -->
-                   |    GlobalAlertSystem.pushToSnackbar(Snack("Error alert", severity = Severity.Error))),
-                   |  Button("Success alert").success.apply(^.onClick -->
-                   |    GlobalAlertSystem.pushToSnackbar(Snack("Success alert", severity = Severity.Success)))
+                   | column(12)(
+                   |   Button("Info alert left").apply(^.onClick -->
+                   |     GlobalAlertSystem.pushToBtmLeft(Snack(s"Info alert"))),
+                   |   Button("Error alert left").error.apply(^.onClick -->
+                   |     GlobalAlertSystem.pushToBtmLeft(Snack("Error alert", severity = Severity.Error))),
+                   |   Button("Success alert left").success.apply(^.onClick -->
+                   |     GlobalAlertSystem.pushToBtmLeft(Snack("Success alert", severity = Severity.Success)))
+                   | )
                       """.stripMargin
               )
             )

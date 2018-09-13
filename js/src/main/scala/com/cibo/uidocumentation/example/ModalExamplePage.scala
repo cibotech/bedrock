@@ -11,7 +11,7 @@ import com.cibo.ui._
 import com.cibo.ui.state.QuickStateWrapper
 import japgolly.scalajs.react.vdom.html_<^._
 import ReactGridStrict._
-import com.cibo.uidocumentation.CodeExample
+import com.cibo.uidocumentation.{CodeExample, SourceLink}
 import com.cibo.uidocumentation.example.ThemingExamplePage.{changeCurrentTheme, themes}
 
 object ModalExamplePage {
@@ -42,21 +42,7 @@ object ModalExamplePage {
                 )
               }
             ),
-            column(12)(
-              CodeExample(
-                "scala",
-                """
-                  |column(12)(
-                  |  Modals.wrapWithClosingPane(curr, () => {
-                  |    mod(_ => false).runNow()
-                  |  },
-                  |    row(Padding(10), "Im a modal!".bold)
-                  |  ),
-                  |  Button("show modal")(^.onClick --> mod(_ => true))
-                  |)
-                """.stripMargin
-              )
-            )
+            SourceLink("ModalExamplePage.scala")
           )
         )
       )

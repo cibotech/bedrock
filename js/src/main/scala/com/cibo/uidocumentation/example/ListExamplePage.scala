@@ -73,9 +73,9 @@ object ListExamplePage {
               s"""
                  |    // Note that the outer list component is called "Listing" to avoid naming conflicts in Scala
                  |    Listing(
-                 |        ListItem("List Item 1"),
-                 |        ListItem("List Item 2"),
-                 |        ListItem("List Item 3")
+                 |        ListItemElement("List Item 1"),
+                 |        ListItemElement("List Item 2"),
+                 |        ListItemElement("List Item 3")
                  |    )
                  |
                  |""".stripMargin
@@ -92,9 +92,9 @@ object ListExamplePage {
               "scala",
               s"""
                |    Listing(bulleted = true)(
-               |        ListItem("List Item 1"),
-               |        ListItem("List Item 2"),
-               |        ListItem("List Item 3")
+               |        ListItemElement("List Item 1"),
+               |        ListItemElement("List Item 2"),
+               |        ListItemElement("List Item 3")
                |    )
                |
                |""".stripMargin
@@ -111,9 +111,9 @@ object ListExamplePage {
               "scala",
               s"""
                  |    Listing(ordered = true)(
-                 |        ListItem("List Item 1"),
-                 |        ListItem("List Item 2"),
-                 |        ListItem("List Item 3")
+                 |        ListItemElement("List Item 1"),
+                 |        ListItemElement("List Item 2"),
+                 |        ListItemElement("List Item 3")
                  |    )
                  |
                |""".stripMargin
@@ -130,9 +130,9 @@ object ListExamplePage {
               "scala",
               s"""
                  |    Listing(
-                 |        ListItem(icon = Icon("face"))("List Item 1"),
-                 |        ListItem(icon = Icon("textsms"))("List Item 2"),
-                 |        ListItem(icon = Icon("help"))("List Item 3")
+                 |        ListItemElement(icon = Icon("face"))("List Item 1"),
+                 |        ListItemElement(icon = Icon("textsms"))("List Item 2"),
+                 |        ListItemElement(icon = Icon("help"))("List Item 3")
                  |    )
                  |
                |""".stripMargin
