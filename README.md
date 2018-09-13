@@ -1,6 +1,7 @@
 # cibo bedrock
+[ ![Download](https://api.bintray.com/packages/cibotech/public/bedrock/images/download.svg) ](https://bintray.com/cibotech/public/bedrock/_latestVersion)
 
-Scala.js based user interface component library.
+scala-js and scalajs-react based user interface component library.
 
 Currently in-dev, use at your own risk, apis subject to change. 
 
@@ -14,7 +15,8 @@ Currently in-dev, use at your own risk, apis subject to change.
 1. Find the latest published version 
 2. Add the scala dependency to your `build.sbt`:
 ```scala
- {pending publish} %%% "bedrock" % bedrockVersion
+ resolvers += Resolver.bintrayRepo("cibotech", "public")
+ com.cibo %%% "bedrock" % {bedrockVersion}
 ```
 3. Include the stylesheet in your HTML header:
 ```html
