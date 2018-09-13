@@ -9,10 +9,6 @@ val scalatestV = "3.0.1"
 
 publishArtifact := false
 
-lazy val buildVersion =
-  sys.env.getOrElse("TRAVIS_BUILD_NUMBER", (System.currentTimeMillis() / 1000).toString)
-
-val versionNumber = s"0.2.$buildVersion"
 crossScalaVersions := Seq("2.12.4")
 
 lazy val `bedrock-root` = project
@@ -26,7 +22,6 @@ lazy val `bedrock-root` = project
   )
 
 val commonSettings = Seq(
-  version := versionNumber,
   organization := org
 )
 
