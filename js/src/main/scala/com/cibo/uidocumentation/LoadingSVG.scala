@@ -53,6 +53,7 @@ object LoadingSpinner {
   implicit def loadingSpinnerToVdom(spinner: LoadingSpinner): VdomElement = spinner.toDom
 }
 
+@deprecated
 object LoadingSVG {
 
   @deprecated

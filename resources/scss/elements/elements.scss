@@ -1,32 +1,33 @@
 // text elements
-@import "../elements/text";
+@import "text";
 
 // navigation elements
-@import "../elements/navigation";
+@import "navigation";
 
 // structural elements
 @import "../structure/grid";
 
 // complex elements
-@import "../elements/list";
-@import "../elements/calendar";
-@import "../elements/card";
-@import "../elements/table";
+@import "list";
+@import "calendar";
+@import "card";
+@import "table";
+@import "modals";
 
 // form elements
-@import "../elements/form";
-@import "../elements/toggle";
-@import "../elements/basic-input";
-@import "../elements/buttons";
-@import "../elements/icons";
-@import "../elements/upload";
+@import "form";
+@import "toggle";
+@import "basic-input";
+@import "buttons";
+@import "icons";
+@import "upload";
 
 // event elements
-@import "../elements/alerts";
+@import "alerts";
 
 // other elements
-@import "../elements/code-example";
-@import "../elements/statistic";
-@import "../elements/indicator";
-@import "../elements/loading-spinner";
-@import "../elements/plots";
+@import "code-example";
+@import "statistic";
+@import "indicator";
+@import "loading-spinner";
+@import "plots";
