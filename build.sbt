@@ -70,6 +70,8 @@ lazy val reactJSDependency = Seq(
 
 lazy val bedrock = crossProject
   .in(file("."))
+  .settings(publishSettings)
+  .settings(licenseSettings)
   .settings(
     name := projectName,
     organization := org,
@@ -99,6 +101,8 @@ lazy val bedrock = crossProject
 lazy val `bedrock-plots` = project
   .in(file("bedrock-plots"))
   .settings(commonSettings)
+  .settings(publishSettings)
+  .settings(licenseSettings)
   .settings(
     name := "bedrock-plots",
     jsDependencies ++= reactJSDependency,
