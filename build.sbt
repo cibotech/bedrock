@@ -18,6 +18,7 @@ crossScalaVersions := Seq("2.12.4")
 lazy val `bedrock-root` = project
   .in(file("."))
   .aggregate(bedrockJS, bedrockJVM, `bedrock-plots`)
+  .settings(licenseSettings)
   .settings(
     publishArtifact := false,
     publish := {},
