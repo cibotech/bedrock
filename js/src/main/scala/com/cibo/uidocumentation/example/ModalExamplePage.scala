@@ -42,7 +42,7 @@ object ModalExamplePage {
                 )
               }
             ),
-            SourceLink("ModalExamplePage.scala")
+            SourceLink.example("ModalExamplePage.scala")
           )
         )
       )
