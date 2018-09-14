@@ -20,7 +20,7 @@ Currently in-dev, use at your own risk, apis subject to change.
 ```
 3. Include the stylesheet in your HTML header:
 ```html
- <link rel="stylesheet" href="https://bedrock.cibo.tech/resources/css/default.css" />
+ <link rel="stylesheet" href="https://cibotech.github.io/bedrock/resources/css/default.css" />
 ```
 
 # Plot Artifact
