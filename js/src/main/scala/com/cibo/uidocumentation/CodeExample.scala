@@ -30,10 +30,27 @@
 
 package com.cibo.uidocumentation
 
+import com.cibo.ui.Padding
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, _}
 import org.scalajs.dom.document
 import org.scalajs.dom.ext.PimpedNodeList
+import com.cibo.ui.ReactGridStrict._
+
+object SourceLink {
+
+  def example(file: String) = {
+    apply(s"https://github.com/cibotech/bedrock/blob/master/js/src/main/scala/com/cibo/uidocumentation/example/$file")
+  }
+  def apply(githubUrl: String) = {
+    row(
+      Padding(10),
+      column(12)(
+        <.a( ^.href := githubUrl, ^.target := "_blank", "source code")
+      )
+    )
+  }
+}
 
 object CodeExample {
 

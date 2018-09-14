@@ -37,7 +37,7 @@ import com.cibo.ui.elements.{Button, Icon, Text}
 import com.cibo.ui.input.Form.form
 import com.cibo.ui.input._
 import com.cibo.ui.list._
-import com.cibo.uidocumentation.CodeExample
+import com.cibo.uidocumentation.{CodeExample, SourceLink}
 import japgolly.scalajs.react.{Callback, ScalaComponent}
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
@@ -125,52 +125,7 @@ object ViewsExamplePage {
                 row( Padding(10), ^.border := "1px solid grey", column(12)(
                   filterableListView(icons)
                 )),
-                CodeExample(
-                  "scala",
-                  """
-                    |  val filterableListView: FilteringContentView[Icon] = new FilteringContentView[Icon]{
-                    |
-                    |    val stringFilteringList: StringFilteringList[Icon] = new StringFilteringList[Icon] {
-                    |      override def filterFunction(item: Icon, filterString: String): Boolean = item.iconName.contains(filterString)
-                    |
-                    |      override def listWrapper(inner: html_<^.TagMod): html_<^.TagMod = Listing(divided = true)(inner, Padding(10))
-                    |    }
-                    |
-                    |    def listItemRenderer(callback: Icon => Callback, element: Icon): html_<^.TagMod = {
-                    |      <.li(
-                    |        ^.cls := "listItem",
-                    |        ^.onClick --> callback(element),
-                    |        <.div(^.cls := "iconWrapper", element),
-                    |        <.span(^.cls := "label", element.iconName)
-                    |      ).noselect
-                    |    }
-                    |
-                    |    def renderIcon(icon: Icon) = {
-                    |      column(3)(
-                    |        row(
-                    |          column(12)(s"${icon.size.cssName}".bold),
-                    |          column(12)(icon)
-                    |        )
-                    |      ).centerText
-                    |    }
-                    |
-                    |    def activeContentRenderer(element: Option[Icon]) = element match {
-                    |      case Some(icon) =>
-                    |        Pane()(Padding(10),
-                    |          row(
-                    |            renderIcon(icon.small),
-                    |            renderIcon(icon.medium),
-                    |            renderIcon(icon.large),
-                    |            renderIcon(icon.extraLarge)
-                    |          )
-                    |        )
-                    |      case None => Pane()(Padding(10),
-                    |        row(column(12)("Please select an Icon".extraLarge.bold).centerText)
-                    |      )
-                    |    }
-                    |  }
-                    |""".stripMargin
-                )
+                SourceLink.example("ViewsExamplePage.scala")
               )
              )
           )

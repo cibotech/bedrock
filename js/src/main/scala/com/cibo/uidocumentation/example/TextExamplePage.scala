@@ -90,18 +90,13 @@ object TextExamplePage {
           CodeExample(
             "scala",
             """
-               |  val typesOfText = for{
-               |    size <- Seq(Small, Medium, Large, ExtraLarge)
-               |    weight <- Seq(ExtraThin, Thin, Normal, Bold, ExtraBold)
-               |    transform <- Seq(NotTransformed, Capitalized, UpperCase, LowerCase)
-               |  } yield {
-               |    Text(s"${size.getClass.getSimpleName} ${weight.getClass.getSimpleName} ${transform}", size = size, weight = weight, transform = transform)
-               |  }
-               |
-               |  textExampleList(typesOfText),
-               |
-               |
-               |
+              |  val typesOfText = for{
+              |    size <- Seq(Small, Medium, Large, ExtraLarge)
+              |    weight <- Seq(ExtraThin, Thin, Normal, Bold, ExtraBold)
+              |    transform <- Seq(NotTransformed, Capitalized, UpperCase, LowerCase)
+              |  } yield {
+              |    Text(s"${size.getClass.getSimpleName} ${weight.getClass.getSimpleName} ${transform}", size = size, weight = weight, transform = transform)
+              |  }
              |""".stripMargin
           )
         )

@@ -111,11 +111,10 @@ object InputExamplePage {
                 CodeExample(
                   "scala",
                   s"""
-                     |Select(Seq("this","is","a","test"), initialValue = "test",
-                     |   onChange = { selected: String =>
-                     |      Callback(println(s"Changed to {selected}"))
-                     |   }
-                     |)
+                     | SelectInput(Seq("this", "is", "a", "test"), initialValue = "test", onChange = {
+                     |   selected: String =>
+                     |     Callback(println(s"Changed to selected"))
+                     | }))
                  """.stripMargin
                 )
               )

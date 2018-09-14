@@ -1,0 +1,72 @@
+@import "../global";
+
+
+.modal-wrapper {
+  position: relative;
+
+
+  .modal-background{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+    transition: opacity 0.2s;
+    background-color: $shadow-2;
+  }
+
+  .modal-view {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10002;
+    pointer-events: none;
+
+    .modal {
+      transition: margin-top 0.2s;
+      position: relative;
+      display: flex;
+      z-index: 10003;
+      max-width: 100%;
+      max-height: 100%;
+      pointer-events: all;
+      .card {
+        border: none;
+      }
+    }
+  }
+
+  &.hide{
+    .modal-background{
+      pointer-events: none;
+      opacity: 0.0;
+    }
+    .modal{
+
+      transition: margin-top 0.2s;
+
+      margin-top: 2000px;
+    }
+  }
+
+  &.show{
+    .modal-background{
+      opacity: 1.0;
+    }
+    .modal{
+      transition: margin-top 0.2s;
+
+      margin-top: 0px;
+    }
+  }
+
+}
