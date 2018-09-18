@@ -11,17 +11,25 @@ input{
 }
 
 .input{
+
   span{
     display: inline-block;
     padding: 0px;
     font-weight: bold;
     min-width: 100px;
   }
+
   input{
-    min-width: 300px;
+    width: 200px;
+    max-width: 100%;
     border: none;
     border-bottom: $input-border-inactive;
+
+    &.fill{
+      width: 100%;
+    }
   }
+
   select{
     width: auto;
     max-width: 100%;
@@ -40,6 +48,8 @@ select{
 }
 
 select{
+
+  max-width: 100%;
 
   display: inline-block;
   padding: 5px 8px 0px 8px;
@@ -69,6 +79,8 @@ select{
 }
 
 input[type = "text"]{
+
+  max-width: 100%;
 
   display: inline-block;
   padding: 5px 8px 0px 5px;
