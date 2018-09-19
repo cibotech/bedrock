@@ -31,10 +31,6 @@ $small-text-size: $base-text-size - 2px;
 $large-text-size: $base-text-size + 2px;
 $extra-large-text-size: $base-text-size + 8px;
 
-// Input
-$input-border-inactive: 2px solid #9A9A9A;
-$input-border-active: 2px solid $primary-color;
-
 // Table
 $table-header-font-color: $font-color;
 $table-header-background-color: transparent;
@@ -88,6 +84,23 @@ $card-border: 1px solid $line-separator;
 $card-border-radius: 3px;
 $card-header-text-color: $contrast-with-secondary;
 $card-header-bg-color: $secondary-color;
+
+// Input
+$input-border-inactive-color: #9A9A9A;
+$input-border-active-color: $primary-color;
+
+@mixin input-border($color){
+  border: none;
+  border-bottom: 2px solid  $color;
+}
+
+$checkbox-border: 1px solid $secondary-color;
+$checked-color: $primary-color;
+$checked-mark-color: $inverse-font-color;
+
+$slider-bar-border: 1px solid #485155;
+$slider-thumb-color: $primary-color;
+$slider-thumb-size: 14px;
 
 // default mixins place overrides below
 @import "../stylemixins/stylemixins";
