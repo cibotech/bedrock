@@ -23,6 +23,11 @@ button {
   font-size: 14px;
   line-height: 14px;
   margin: 5px;
+
+  &.invert-font-color{
+    color: $inverse-font-color;
+  }
+
   &.secondary{
     background-color: $secondary-color-button;
     color: $contrast-with-secondary;
@@ -52,12 +57,12 @@ button {
 
   &.success{
     background-color: $success-color;
-    color: #FFFFFF;
+    color: $contrast-with-status;
   }
 
   &.error{
     background-color: $error-color;
-    color: #FFFFFF;
+    color: $contrast-with-status;
   }
 
   &.repressed{

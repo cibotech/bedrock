@@ -5,6 +5,11 @@ input, select, textarea, button {
 }
 
 input{
+
+  &.fill{
+    width: 100%;
+  }
+
   &:focus{
     outline: none;
   }
@@ -24,9 +29,6 @@ input{
     max-width: 100%;
     @include input-border($input-border-inactive-color);
 
-    &.fill{
-      width: 100%;
-    }
   }
 
   select{
@@ -51,28 +53,29 @@ select{
   max-width: 100%;
 
   display: inline-block;
-  padding: 5px 8px 0px 8px;
+  padding: $select-input-padding;
   box-shadow: none;
-  background-color: transparent;
+  background-color: $input-bg-inactive;
+
   background-image: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   color: $font-color;
   font-size: 16px;
-  border-radius: 0px;
-  padding-right: 18px;
-  transition: border-color 0.2s;
+  border-radius: $input-border-radius;
+  transition: border-color 0.2s, background-color 0.2s;
 
   @include input-border($input-border-inactive-color);
   &:focus{
     @include input-border($input-border-active-color);
+    background-color: $input-bg-active;
   }
   & + .select-arrow{
     color: $input-border-inactive-color;
     vertical-align: middle;
     pointer-events: none;
-    margin-left: -18px;
+    margin-left: $select-caret-inset;
     margin-top: -3px;
   }
 }
@@ -82,10 +85,10 @@ input[type = "text"]{
   max-width: 100%;
 
   display: inline-block;
-  padding: 5px 8px 0px 5px;
+  padding: $text-input-padding;
   border: none;
   box-shadow: none;
-  background-color: transparent;
+  background-color: $input-bg-inactive;
   background-image: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -93,13 +96,14 @@ input[type = "text"]{
   color: $font-color;
 
   font-size: 16px;
-  border-radius: 0px;
+  border-radius: $input-border-radius;
   @include input-border($input-border-inactive-color);
 
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s;
 
   &:focus{
     @include input-border($input-border-active-color);
+    background-color: $input-bg-active;
   }
 }
 

@@ -22,6 +22,7 @@ $card-background: #FEFEFE;
 
 $error-color: #F0522E;
 $success-color: #A2B43B;
+$contrast-with-status: #f0f0f0;
 
 $line-separator: rgba(0, 0, 0, 0.1);
 
@@ -78,10 +79,23 @@ $nav-shadow: 0 4px 8px rgba(50, 50, 93, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
 $input-border-inactive-color: #9A9A9A;
 $input-border-active-color: $primary-color;
 
+$input-bg-active: transparent;
+$input-bg-inactive: transparent;
+
+$input-border-radius: 0px;
+
+$input-text-color-active: $font-color;
+$input-text-color-inactive: $font-color;
+
 @mixin input-border($color){
   border: none;
   border-bottom: 2px solid  $color;
 }
+
+$select-input-padding: 5px 18px 0px 8px;
+$select-caret-inset: -18px;
+
+$text-input-padding: 5px 8px 0px 5px;
 
 $checkbox-border: 1px solid $secondary-color;
 $checked-color: $primary-color;
@@ -109,9 +123,8 @@ $toggle-false-indicator-color: $contrast-with-primary;
 $toggle-false-background: $adjacent-font-color;
 $toggle-true-background: $secondary-color;
 
-$toggle-false-border-color: $adjacent-font-color;
-$toggle-true-border-color: $secondary-color;
-
+$toggle-false-border-color: $toggle-false-background;
+$toggle-true-border-color: $toggle-true-background;
 
 $toogle-x-inset: 2px;
 $toogle-border-width: 1px;
@@ -119,6 +132,10 @@ $toggle-indicator-height: 14px; // even number
 $toggle-slider-height: 18px; // even number
 $toggle-indicator-offset: ($toggle-slider-height - $toggle-indicator-height) / 2;
 $toggle-width: 40px;
+
+// Loading
+$loading-spinner-color: $font-color;
+
 
 // default mixins place overrides below
 @import "../stylemixins/stylemixins";

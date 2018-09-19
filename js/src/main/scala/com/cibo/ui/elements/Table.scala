@@ -50,6 +50,7 @@ case class TableKey[T: Ordering](name: Text,
     ordering.compare(v1.asInstanceOf[T], v2.asInstanceOf[T]) * { if (defaultDecending) -1 else 1 }
   }
 }
+
 case class TableValue(sortValue: Any, value: TagMod)
 case class TableRow(values: Map[TableKey[_], TableValue], modifiers: TagMod = EmptyVdom)
 case class SortableTable(headers: Seq[TableKey[_]], rows: Seq[TableRow], defaultSort: TableKey[_]) {
@@ -57,15 +58,19 @@ case class SortableTable(headers: Seq[TableKey[_]], rows: Seq[TableRow], default
   def sortBy(header: TableKey[_]) = {
     val sorted = rows.sortWith(
       (row1, row2) =>
-        header.compareAny(row1.values.get(header).get.sortValue,
-                          row2.values.get(header).get.sortValue) > 0)
+        header.compareAny(row1.values(header).sortValue,
+                          row2.values(header).sortValue) > 0)
     this.copy(rows = sorted)
   }
 }
 
 object SortableTableRenderer {
 
-  case class Props(table: SortableTable, headerTextStyle: Text => Text = _.bold.large.upperCase)
+  case class Props(table: SortableTable,
+                   headerTextStyle: Text => Text = _.bold.large.upperCase,
+                   renderLimit: Int = 100
+                  )
+
   case class State(table: SortableTable, currentSort: TableKey[_], decending: Boolean)
 
   class Backend($ : BackendScope[Props, State]) {
@@ -102,7 +107,7 @@ object SortableTableRenderer {
       val rows = { if (state.decending) table.rows else table.rows.reverse }.map { row =>
         <.tr(row.values.toSeq
           .sortBy(_._1.order)
-          .map { ele =>
+          .take(props.renderLimit).map { ele =>
             ele._2.value
           }
           .toVector.toTagMod,
