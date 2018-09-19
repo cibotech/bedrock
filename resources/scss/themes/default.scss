@@ -101,6 +101,25 @@ $card-border-radius: 3px;
 $card-header-text-color: $contrast-with-secondary;
 $card-header-bg-color: $secondary-color;
 
+
+// Toggle
+$toggle-true-indicator-color: $primary-color;
+$toggle-false-indicator-color: $contrast-with-primary;
+
+$toggle-false-background: $adjacent-font-color;
+$toggle-true-background: $secondary-color;
+
+$toggle-false-border-color: $adjacent-font-color;
+$toggle-true-border-color: $secondary-color;
+
+
+$toogle-x-inset: 2px;
+$toogle-border-width: 1px;
+$toggle-indicator-height: 14px; // even number
+$toggle-slider-height: 18px; // even number
+$toggle-indicator-offset: ($toggle-slider-height - $toggle-indicator-height) / 2;
+$toggle-width: 40px;
+
 // default mixins place overrides below
 @import "../stylemixins/stylemixins";
 

@@ -111,7 +111,7 @@ object SortableTableRenderer {
 
       }
 
-      <.div(^.cls := "field-table table-responsive",
+      <.div(^.cls := "bd-table table-responsive",
             <.table(
               <.thead(
                 <.tr(headers.toTagMod)
