@@ -78,6 +78,16 @@ $menu-item-group-margin: 0px;
 $menu-item-font-size: 14px;
 $nav-shadow: 0 4px 8px rgba(50, 50, 93, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
 
+// Cards
+$card-margin: 5px;
+$card-padding: 10px;
+$card-header-height: 44px;
+$card-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+$card-border: 1px solid $line-separator;
+$card-border-radius: 3px;
+$card-header-text-color: $contrast-with-secondary;
+$card-header-bg-color: $secondary-color;
+
 // default mixins place overrides below
 @import "../stylemixins/stylemixins";
 
