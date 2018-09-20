@@ -37,6 +37,12 @@ $table-header-font-color: $font-color;
 $table-header-background-color: transparent;
 $table-header-border-bottom: 1px solid $font-color;
 
+$table-header-cell-padding: 10px 15px 10px 4px;
+
+$table-first-child-leftpad: 10px;
+$table-body-cell-padding: 10px 15px 10px 4px;
+$table-body-cell-border-bottom: 1px solid $line-separator;
+
 // Buttons
 $primary-color-button: $primary-color;
 $secondary-color-button: $secondary-color;
