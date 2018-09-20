@@ -25,6 +25,7 @@ $nav-color: $card-background;
 
 $error-color: #F0522E;
 $success-color: #A2B43B;
+$contrast-with-status: #f0f0f0;
 
 $line-separator: rgba(0, 0, 0, 0.1);
 
@@ -34,14 +35,16 @@ $small-text-size: $base-text-size - 2px;
 $large-text-size: $base-text-size + 2px;
 $extra-large-text-size: $base-text-size + 8px;
 
-// Input
-$input-border-inactive: 2px solid $adjacent-font-color;
-$input-border-active: 2px solid $primary-color;
-
 // Table
 $table-header-font-color: $font-color;
 $table-header-background-color: transparent;
 $table-header-border-bottom: 1px solid $font-color;
+
+$table-header-cell-padding: 10px 15px 10px 4px;
+
+$table-first-child-leftpad: 10px;
+$table-body-cell-padding: 10px 15px 10px 4px;
+$table-body-cell-border-bottom: 1px solid $line-separator;
 
 // Buttons
 $primary-color-button: $primary-color;
@@ -77,6 +80,67 @@ $menu-item-padding: 7px 10px 7px $menu-item-leftpad;
 $menu-item-group-margin: 0px;
 $menu-item-font-size: 14px;
 $nav-shadow: 0 4px 8px rgba(50, 50, 93, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+
+// Cards
+$card-margin: 5px;
+$card-padding: 10px;
+$card-header-height: 44px;
+$card-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+$card-border: 1px solid $line-separator;
+$card-border-radius: 3px;
+$card-header-text-color: $contrast-with-secondary;
+$card-header-bg-color: $secondary-color;
+
+// Input
+$input-border-inactive-color: #9A9A9A;
+$input-border-active-color: $primary-color;
+
+$input-bg-active: transparent;
+$input-bg-inactive: transparent;
+
+$input-border-radius: 0px;
+
+$input-text-color-active: $font-color;
+$input-text-color-inactive: $font-color;
+
+@mixin input-border($color){
+  border: none;
+  border-bottom: 2px solid  $color;
+}
+
+$select-input-padding: 5px 18px 0px 8px;
+$select-caret-inset: -18px;
+
+$text-input-padding: 5px 8px 0px 5px;
+
+$checkbox-border: 1px solid $secondary-color;
+$checked-color: $primary-color;
+$checked-mark-color: $inverse-font-color;
+
+$slider-bar-border: 1px solid #485155;
+$slider-thumb-color: $primary-color;
+$slider-thumb-size: 14px;
+
+// Toggle
+$toggle-true-indicator-color: $primary-color;
+$toggle-false-indicator-color: $contrast-with-primary;
+
+$toggle-false-background: $adjacent-font-color;
+$toggle-true-background: $secondary-color;
+
+$toggle-false-border-color: $toggle-false-background;
+$toggle-true-border-color: $toggle-true-background;
+
+$toogle-x-inset: 2px;
+$toogle-border-width: 1px;
+$toggle-indicator-height: 14px; // even number
+$toggle-slider-height: 18px; // even number
+$toggle-indicator-offset: ($toggle-slider-height - $toggle-indicator-height) / 2;
+$toggle-width: 40px;
+
+// Loading
+$loading-spinner-color: $font-color;
+
 
 // default mixins place overrides below
 @import "../stylemixins/stylemixins";

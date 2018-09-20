@@ -48,7 +48,8 @@ object PlotComponent {
   case class Props(r: Plot,
                    size: Extent,
                    theme: Theme,
-                   fillX: Boolean)
+                   fillX: Boolean,
+                   fillY: Boolean)
 
   case class State()
 
@@ -72,8 +73,14 @@ object PlotComponent {
         props.size.width
       }
 
+      val scaledHeight = if(props.fillY){
+        containerRef.clientHeight.toDouble
+      } else {
+        props.size.width
+      }
+
       val paddingHack: Double = 20
-      val scene = props.r.render(props.size.copy(width = scaledWidth))(props.theme)
+      val scene = props.r.render(props.size.copy(width = scaledWidth, height = scaledHeight))(props.theme)
       val paddedSize = Extent(scene.extent.width - paddingHack, scene.extent.height - paddingHack)
       val paddedScene = fit(scene padAll paddingHack / 2, paddedSize)
       val renderCtx = resizeCanvas(canvasRef, scene.extent, paddingHack)
@@ -131,7 +138,8 @@ object PlotComponent {
   def apply(plot: Plot,
             size: Extent = Plot.defaultExtent,
             theme: Theme = DefaultTheme.defaultTheme,
-            fillX: Boolean = false) = {
-    component(Props(plot, size, theme, fillX))
+            fillX: Boolean = false,
+            fillY: Boolean = false) = {
+    component(Props(plot, size, theme, fillX, fillY))
   }
 }

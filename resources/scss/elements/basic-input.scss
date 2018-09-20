@@ -5,23 +5,32 @@ input, select, textarea, button {
 }
 
 input{
+
+  &.fill{
+    width: 100%;
+  }
+
   &:focus{
     outline: none;
   }
 }
 
 .input{
+
   span{
     display: inline-block;
     padding: 0px;
     font-weight: bold;
     min-width: 100px;
   }
+
   input{
-    min-width: 300px;
-    border: none;
-    border-bottom: $input-border-inactive;
+    width: 200px;
+    max-width: 100%;
+    @include input-border($input-border-inactive-color);
+
   }
+
   select{
     width: auto;
     max-width: 100%;
@@ -41,40 +50,45 @@ select{
 
 select{
 
+  max-width: 100%;
+
   display: inline-block;
-  padding: 5px 8px 0px 8px;
-  border: none;
+  padding: $select-input-padding;
   box-shadow: none;
-  background-color: transparent;
+  background-color: $input-bg-inactive;
+
   background-image: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   color: $font-color;
   font-size: 16px;
-  border-radius: 0px;
-  border-bottom: $input-border-inactive;
-  padding-right: 18px;
-  transition: border-color 0.2s;
+  border-radius: $input-border-radius;
+  transition: border-color 0.2s, background-color 0.2s;
+
+  @include input-border($input-border-inactive-color);
   &:focus{
-    border-bottom: $input-border-active
+    @include input-border($input-border-active-color);
+    background-color: $input-bg-active;
   }
   & + .select-arrow{
-    color: $input-border-inactive;
+    color: $input-border-inactive-color;
     vertical-align: middle;
     pointer-events: none;
-    margin-left: -18px;
+    margin-left: $select-caret-inset;
     margin-top: -3px;
   }
 }
 
 input[type = "text"]{
 
+  max-width: 100%;
+
   display: inline-block;
-  padding: 5px 8px 0px 5px;
+  padding: $text-input-padding;
   border: none;
   box-shadow: none;
-  background-color: transparent;
+  background-color: $input-bg-inactive;
   background-image: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -82,12 +96,14 @@ input[type = "text"]{
   color: $font-color;
 
   font-size: 16px;
-  border-radius: 0px;
-  border-bottom: $input-border-inactive;
+  border-radius: $input-border-radius;
+  @include input-border($input-border-inactive-color);
 
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s;
+
   &:focus{
-    border-bottom: $input-border-active;
+    @include input-border($input-border-active-color);
+    background-color: $input-bg-active;
   }
 }
 
@@ -96,7 +112,7 @@ input[type = "checkbox"]{
   margin: 6px 3px 6px 3px;
 
   display: inline-block;
-  border: 1px solid $secondary-color;
+  border: $checkbox-border;
 
   width: 18px;
   height: 18px;
@@ -124,15 +140,16 @@ input[type = "checkbox"]{
   &:checked{
     border-radius: 2px;
     font-size: 16px;
-    background-color: $primary-color;
-    border: 1px solid $primary-color;
+    background-color: $checked-color;
+    border: 1px solid $checked-color;
     &:after{
-      color: $inverse-font-color;
+      color: $checked-mark-color;
       font-family: "Material Icons";
       content: "\e5ca";
     }
   }
 }
+
 
 .slider-input-wrapper {
   display: inline-block;
@@ -145,7 +162,7 @@ input[type = "checkbox"]{
     -webkit-appearance: none;
     overflow: visible;
     border-radius: 2px;
-    border: 1px solid $darkgrey;
+    border: $slider-bar-border;
     height: 0px;
     padding: 0;
     z-index: 998;
@@ -157,10 +174,10 @@ input[type = "checkbox"]{
 
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background-color: $primary-color;
-    width: 14px;
-    height: 14px;
-    border-radius: 15px;
+    background-color: $slider-thumb-color;
+    width: $slider-thumb-size;
+    height: $slider-thumb-size;
+    border-radius: 300px;
     cursor: pointer;
     z-index: 999;
   }

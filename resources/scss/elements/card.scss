@@ -46,27 +46,46 @@
 }
 
 .card{
-  $card-margin: 5px;
-  $card-padding: 10px;
 
   background-color: $card-background;
-  border-radius: 3px;
-  box-shadow: 1px 1px 1px 1px $shadow-0;
+  border-radius: $card-border-radius;
+  box-shadow: $card-shadow;
   margin: $card-margin;
-  overflow: auto;
-  border: 1px solid $line-separator;
+  border: $card-border;
+  position: relative;
 
-  .header{
+
+  display: flex;
+  flex-direction: column;
+
+  .card-header {
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    position: absolute;
     justify-content: space-between;
     display: flex;
-    background-color: $secondary-color;
-    color: $contrast-with-secondary;
-
+    background-color: $card-header-bg-color;
+    color: $card-header-text-color;
+    height: $card-header-height;
     line-height: 24px;
-    @include border-radius(3px 3px 0px 0px);
+    @include border-radius($card-border-radius $card-border-radius 0px 0px);
 
-    .controls{
+    .controls {
       padding: 2px 5px 2px 0px;
+    }
+  }
+
+  .card-wrapper {
+    overflow: auto;
+    .card-content-container{
+      overflow: auto;
+    }
+  }
+
+  &.with-header{
+    .card-wrapper {
+      margin-top: $card-header-height;
     }
   }
 

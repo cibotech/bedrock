@@ -1,47 +1,47 @@
 @import "../global";
 
+
+
 .toggle{
-  $toggle-height: 18px;
 
   @include noselect-pointer();
   display: inline-block;
   line-height: 0;
   position: relative;
-  $width : 40px;
-  height: $toggle-height;
-  width: $width;
+  height: $toggle-slider-height + ($toogle-border-width * 2);
+  width: $toggle-width + ($toogle-border-width * 2);
   margin: 8px;
 
-  $off: -2px;
-  $on: 14px;
+  $off: ($toogle-border-width * -1) - $toogle-x-inset;
+  $on: $toggle-indicator-height - $toogle-border-width + $toogle-x-inset;
 
   .toggle-indicator{
-    width: $toggle-height - 2px;
-    height: $toggle-height - 2px;
-    background-color: $primary-color;
+    width: $toggle-indicator-height;
+    height: $toggle-indicator-height;
+    background-color: $toggle-true-indicator-color;
     position: absolute;
     border-radius: 20px;
-    top: 2px;
+    top: $toggle-indicator-offset + $toogle-border-width;
     z-index: 3;
   }
 
   &.initial-true{
     .interior-wrapper{
-      background-color: $secondary-color;
-      border-color: $secondary-color;
+      background-color: $toggle-true-background;
+      border-color: $toggle-true-border-color;
     }
     .interior-indicator{
-      width: $width;
+      width: $toggle-width;
     }
     .toggle-indicator{
-      left: $width - $on;
+      left: $toggle-width - $on;
     }
   }
 
   &.initial-false{
     .interior-wrapper{
-      background-color: $adjacent-font-color;
-      border-color: $adjacent-font-color;
+      background-color: $toggle-false-background;
+      border-color: $toggle-false-border-color;
     }
     .interior-indicator{
       width: 0px;
@@ -53,30 +53,30 @@
 
   &.true{
     .interior-wrapper{
-      background-color: $secondary-color;
-      border-color: $secondary-color;
+      background-color: $toggle-true-background;
+      border-color: $toggle-true-border-color;
     }
     .interior-indicator{
-      width: $width;
+      width: $toggle-width;
     }
     .toggle-indicator{
       @include animation('to-true-anim.2s 1');
-      background-color: $primary-color;
-      left: $width - $on;
+      background-color: $toggle-true-indicator-color;
+      left: $toggle-width - $on;
     }
   }
 
   &.false{
     .interior-wrapper{
-      background-color: $adjacent-font-color;
-      border-color: $adjacent-font-color;
+      background-color: $toggle-false-background;
+      border-color: $toggle-false-border-color;
     }
     .interior-indicator{
       width: 0px;
     }
     .toggle-indicator{
       @include animation('to-false-anim .2s 1');
-      background-color: $contrast-with-primary;
+      background-color: $toggle-false-indicator-color;
       left: - $off;
     }
   }
@@ -86,10 +86,10 @@
     position: absolute;
     margin: 0;
     -webkit-appearance: none;
-    width: $width;
-    height: 16px;
+    width: $toggle-width;
+    height: $toggle-slider-height;
     border-radius: 15px;
-    border: 2px solid $grey;
+    border: $toogle-border-width solid $toggle-false-border-color;
     overflow: hidden;
     z-index: 2;
   }
@@ -106,7 +106,7 @@
 
   @include keyframes(to-false-anim) {
     0%   {
-      left: $width - $on;
+      left: $toggle-width - $on;
     }
     100% {
       left: -$off;
@@ -117,7 +117,7 @@
       left: -$off;
     }
     100% {
-      left: $width - $on;
+      left: $toggle-width - $on;
     }
   }
 

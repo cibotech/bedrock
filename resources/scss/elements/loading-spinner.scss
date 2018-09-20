@@ -41,19 +41,19 @@
 .loading-spinner{
 
   &.small{
-    @include loading-spinner(22px, 3px, #000000);
+    @include loading-spinner(22px, 3px, $loading-spinner-color);
   }
 
   &.medium {
-    @include loading-spinner(30px, 3px, #000000);
+    @include loading-spinner(30px, 3px, $loading-spinner-color);
   }
 
   &.large{
-    @include loading-spinner(40px, 4px, #000000);
+    @include loading-spinner(40px, 4px, $loading-spinner-color);
   }
 
   &.extra-large{
-    @include loading-spinner(60px, 5px, #000000);
+    @include loading-spinner(60px, 5px, $loading-spinner-color);
   }
 }
 

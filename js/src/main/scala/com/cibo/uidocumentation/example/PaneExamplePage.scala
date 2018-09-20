@@ -31,13 +31,14 @@
 package com.cibo.uidocumentation.example
 
 import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements.{Button, Icon, Text}
+import com.cibo.ui.elements._
 import com.cibo.ui.pane.{LoadablePane, Pane, PaneHeader}
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import com.cibo.ui.elements.Text._
 import com.cibo.uidocumentation.CodeExample
 import com.cibo.ui._
+import com.cibo.uidocumentation.example.TableExamplePage.{TableKeys, rows}
 
 object PaneExamplePage {
 
@@ -143,7 +144,21 @@ object PaneExamplePage {
               """.stripMargin
             )),
             LoadablePane(6)(Some("Finished")),
-            LoadablePane(6)(None)
+            LoadablePane(6)(None),
+            column(12)(
+              Pane(
+                Some(PaneHeader(
+                  title = Some("Pane With scroll")
+                ))
+              )(
+                ^.maxHeight := "400px",
+                row(
+                  column(12)(
+                    GridExamplePage.component()
+                  )
+                )
+              )
+            )
           )
         )
       )

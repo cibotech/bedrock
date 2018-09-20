@@ -42,13 +42,18 @@ object Pane {
   class Backend(val $ : BackendScope[Props, Unit]) {
 
     def render(p: Props) = {
-      val header = p.header.map(x => <.div(PaneHeaderRenderer(x)))
 
-      <.div(^.cls := "card",
+
+      <.div(^.classSet1("card", "with-header" -> p.header.isDefined),
+        p.header.map(_.toTagMod).getOrElse(EmptyVdom),
+        <.div( ^.cls := "card-wrapper",
             p.padding.map(_.tagMod).getOrElse(EmptyVdom),
             ^.classSet("low-profile" -> p.lowProfile),
-            header.getOrElse(EmptyVdom),
-            p.content.toTagMod(identity))
+            <.div( ^.cls := "card-content-container",
+              p.content.toTagMod(identity)
+            )
+        )
+      )
     }
   }
 
@@ -65,33 +70,13 @@ object Pane {
 
 case class PaneHeader(title: Option[Text] = None,
                       interactions: Seq[Button] = Seq(),
-                      textStyle: Text => Text = _.bold.medium)
+                      textStyle: Text => Text = _.bold.medium){
 
-object PaneHeaderRenderer {
-
-  class Backend(val $ : BackendScope[PaneHeader, Unit]) {
-
-    val loading = row(vcenter = true, center = true, fill = true)(
-      column(12)(
-        <.div(^.cls := "pane-loading-indicator", LoadingSVG.primary)
-      )
-    )
-
-    def render(p: PaneHeader) = {
-      val title = p.title.getOrElse(Text(""))
-      <.div(^.cls := "header",
-            <.span(^.cls := "title", p.textStyle(title), Padding(10)),
-            <.div(^.cls := "controls", p.interactions.map(_.toDom).toTagMod(identity)))
-    }
+  def toTagMod: TagMod = {
+    <.div(^.cls := "card-header",
+      <.span(^.cls := "title", textStyle(title.getOrElse(Text(""))), Padding(10)),
+      <.div(^.cls := "controls", interactions.map(_.toDom).toTagMod(identity)))
   }
-
-  private val component = ScalaComponent
-    .builder[PaneHeader]("PaneHeader")
-    .renderBackend[Backend]
-    .build
-
-  def apply(paneHeader: PaneHeader) = component(paneHeader)
-
 }
 
 object LoadablePane {

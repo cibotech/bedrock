@@ -1,7 +1,12 @@
 .table-responsive{
   overflow-x: auto;
 }
-.field-table{
+
+$table-header-font-size: 16px;
+$table-header-font-weight: 500;
+$table-header-text-transform: uppercase;
+
+.bd-table{
   table{
     border-collapse: collapse;
     width: 100%;
@@ -9,49 +14,61 @@
       border-bottom: $table-header-border-bottom;
       tr{
         th{
-          color: $table-header-font-color;
-          background-color: $table-header-background-color;
-          text-align: left;
-          white-space: nowrap ;
-          padding: 10px 15px 10px 4px;
-          @include noselect-pointer();
+          .header-wrapper{
+            font-size: $table-header-font-size;
+            font-weight: $table-header-font-weight;
+            text-transform: $table-header-text-transform;
+            color: $table-header-font-color;
+            background-color: $table-header-background-color;
+            text-align: left;
+            white-space: nowrap ;
+            padding: $table-header-cell-padding;
+            @include noselect-pointer();
+            line-height: 1;
+            &:first-child{
+              padding-left: $table-first-child-leftpad;
+            }
 
-          &:first-child{
-            padding-left: 10px;
-          }
+            &:hover{
+              .sort-direction {
+                color: darken($primary-color, 15%);
+              }
+            }
 
-          &:hover{
             .sort-direction {
-              color: darken($primary-color, 15%);
-            }
-          }
+              position: relative;
+              top: 0px;
+              bottom: 0px;
+              display: inline;
+              color: rgba(0, 0, 0, 0.15);
+              width: 20px;
+              flex-direction: row;
+              align-items: center;
 
-          .sort-direction{
-            position: relative;
-            display: inline-block;
-            color: rgba(0,0,0,0.15);
-            width: 20px;
-            flex-direction: row;
-            vertical-align: top;
-            .up{
-              position: absolute;
-              top: -1px;
-            }
-            .down{
-              position: absolute;
-              top: 6px;
-            }
-
-            &.active{
-              color: rgba(0,0,0,0.25);
-              &.decending{
-                .up{
-                  color: $table-header-font-color;
+              .up-down {
+                display: inline;
+                height: 100%;
+                .up {
+                  position: absolute;
+                  top: -3px;
+                }
+                .down {
+                  position: absolute;
+                  top: 3px;
                 }
               }
-              &.ascending{
-                .down{
-                  color: $table-header-font-color;
+
+              &.active {
+                color: rgba(0, 0, 0, 0.25);
+                &.decending {
+                  .up {
+                    color: $table-header-font-color;
+                  }
+                }
+                &.ascending {
+                  .down {
+                    color: $table-header-font-color;
+                  }
                 }
               }
             }
@@ -63,7 +80,7 @@
       tr{
         td{
           &:first-child{
-            padding-left: 10px;
+            padding-left: $table-first-child-leftpad;
           }
           white-space: nowrap;
           .sub-unit{
@@ -71,8 +88,8 @@
             font-weight: 500;
             padding-left: 1px;
           }
-          border-bottom: 1px solid $shadow;
-          padding: 10px 15px 10px 4px;
+          border-bottom: $table-body-cell-border-bottom;
+          padding: $table-body-cell-padding;
           text-align: left;
         }
       }

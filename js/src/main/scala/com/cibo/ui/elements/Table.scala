@@ -40,7 +40,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 
 import scala.language.existentials
 
-case class TableKey[T: Ordering](name: Text,
+case class TableKey[T: Ordering](name: String,
                                  key: String,
                                  order: Int,
                                  defaultDecending: Boolean = true,
@@ -50,6 +50,7 @@ case class TableKey[T: Ordering](name: Text,
     ordering.compare(v1.asInstanceOf[T], v2.asInstanceOf[T]) * { if (defaultDecending) -1 else 1 }
   }
 }
+
 case class TableValue(sortValue: Any, value: TagMod)
 case class TableRow(values: Map[TableKey[_], TableValue], modifiers: TagMod = EmptyVdom)
 case class SortableTable(headers: Seq[TableKey[_]], rows: Seq[TableRow], defaultSort: TableKey[_]) {
@@ -57,15 +58,18 @@ case class SortableTable(headers: Seq[TableKey[_]], rows: Seq[TableRow], default
   def sortBy(header: TableKey[_]) = {
     val sorted = rows.sortWith(
       (row1, row2) =>
-        header.compareAny(row1.values.get(header).get.sortValue,
-                          row2.values.get(header).get.sortValue) > 0)
+        header.compareAny(row1.values(header).sortValue,
+                          row2.values(header).sortValue) > 0)
     this.copy(rows = sorted)
   }
 }
 
 object SortableTableRenderer {
 
-  case class Props(table: SortableTable, headerTextStyle: Text => Text = _.bold.large.upperCase)
+  case class Props(table: SortableTable,
+                   renderLimit: Int = 100
+                  )
+
   case class State(table: SortableTable, currentSort: TableKey[_], decending: Boolean)
 
   class Backend($ : BackendScope[Props, State]) {
@@ -75,8 +79,10 @@ object SortableTableRenderer {
         ^.cls := s"sort-direction ${if (active) {
           if (decending) "active decending" else "active ascending"
         } else ""}",
-        <.span(^.cls := "up", Icon.arrowDropUp),
-        <.span(^.cls := "down", Icon.arrowDropDown)
+        <.div( ^.cls := "up-down",
+          <.span(^.cls := "up", Icon.arrowDropUp),
+          <.span(^.cls := "down", Icon.arrowDropDown)
+        )
       )
     }
 
@@ -85,24 +91,26 @@ object SortableTableRenderer {
 
       val headers = table.headers.sortBy(_.order).map { header =>
         <.th(
-          props.headerTextStyle(header.name),
-          if (header.sorting)
-            displayDirectionHeader(header.key == state.currentSort.key, state.decending)
-          else EmptyVdom,
-          ^.onClick --> {
-            if (state.currentSort.key == header.key) {
-              $.modState(_.copy(decending = !state.decending))
-            } else {
-              $.modState(_.copy(currentSort = header, decending = header.defaultDecending))
+          <.div( ^.cls := "header-wrapper",
+            <.span( ^.cls := "header-text", header.name),
+            if (header.sorting)
+              displayDirectionHeader(header.key == state.currentSort.key, state.decending)
+            else EmptyVdom,
+            ^.onClick --> {
+              if (state.currentSort.key == header.key) {
+                $.modState(_.copy(decending = !state.decending))
+              } else {
+                $.modState(_.copy(currentSort = header, decending = header.defaultDecending))
+              }
             }
-          }
+          )
         )
       }
 
       val rows = { if (state.decending) table.rows else table.rows.reverse }.map { row =>
         <.tr(row.values.toSeq
           .sortBy(_._1.order)
-          .map { ele =>
+          .take(props.renderLimit).map { ele =>
             ele._2.value
           }
           .toVector.toTagMod,
@@ -111,7 +119,7 @@ object SortableTableRenderer {
 
       }
 
-      <.div(^.cls := "field-table table-responsive",
+      <.div(^.cls := "bd-table table-responsive",
             <.table(
               <.thead(
                 <.tr(headers.toTagMod)
