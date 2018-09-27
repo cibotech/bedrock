@@ -38,7 +38,7 @@ import com.cibo.ui.input.{CheckBoxInput, TextInput, ToggleInput}
 import com.cibo.ui.pane.{Pane, PaneHeader}
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 import com.cibo.ui._
-import com.cibo.ui.state.QuickStateWrapper
+import com.cibo.ui.state.{QuickStateWrapper, ShowHideWrapper}
 import japgolly.scalajs.react.vdom.html_<^._
 import ReactGridStrict._
 import com.cibo.uidocumentation.{CodeExample, SourceLink}
@@ -49,7 +49,6 @@ object ModalExamplePage {
   case class Props()
   case class State()
 
-  val exampleModalWrapper = new QuickStateWrapper[Boolean]
   class Backend(val $ : BackendScope[Props, State]) {
 
     def render(p: Props, s: State) = {
@@ -61,14 +60,12 @@ object ModalExamplePage {
           row(
             column(12)(
             <.h4("Modal Example"),
-              exampleModalWrapper.wrap(false){ case (curr, mod) =>
+              ShowHideWrapper(false){ x =>
                 column(12)(
-                  Modals.wrapWithClosingPane(curr, () => {
-                    mod(_ => false).runNow()
-                  },
+                  Modals.wrapWithClosingPane(x.isVisible, x.setHidden,
                     row(Padding(10), "Im a modal!".bold)
                   ),
-                  Button("show modal")(^.onClick --> mod(_ => true))
+                  Button("show modal")(^.onClick --> x.setVisible)
                 )
               }
             ),

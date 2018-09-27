@@ -63,3 +63,38 @@ class QuickStateWrapper[T]{
 
 }
 
+object ShowHideWrapper {
+
+  case class ShowHideArgs(isVisible: Boolean,
+                          setVisible: CallbackTo[Unit],
+                          setHidden: CallbackTo[Unit]
+                         ){
+    def isHidden: Boolean = !isVisible
+  }
+
+  case class State(visible: Boolean)
+  case class Props(visible: Boolean, contents: ShowHideArgs => VdomElement)
+
+  class Backend(val $: BackendScope[Props, State]) {
+
+    def setVisible(): CallbackTo[Unit] = $.setState(State(true))
+    def setHidden(): CallbackTo[Unit] = $.setState(State(false))
+
+    def render(p: Props, s: State) = {
+        p.contents(ShowHideArgs(
+          s.visible,
+          setVisible,
+          setHidden
+        ))
+    }
+  }
+
+  private val component = ScalaComponent
+    .builder[Props]("ShowHideWrapper")
+    .initialStateFromProps(p => State(p.visible))
+    .renderBackend[Backend]
+    .build
+
+  def apply(visible: Boolean)(fn: ShowHideArgs => VdomElement) = component(Props(visible, fn))
+
+}

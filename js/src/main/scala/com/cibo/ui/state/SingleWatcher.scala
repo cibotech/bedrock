@@ -28,40 +28,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.cibo.ui.elements
+package com.cibo.ui.state
 
-import com.cibo.ui.pane.{Pane, PaneHeader}
-import japgolly.scalajs.react.{Callback, CallbackTo}
-import japgolly.scalajs.react.vdom.TagMod
-import japgolly.scalajs.react.vdom.html_<^.{<, EmptyVdom, ^}
-import japgolly.scalajs.react.vdom.html_<^._
+// only supports one subscriber
+class SingleWatcher[A](initialState: A) {
+  private var currentState: A = initialState
+  private var stateUpdatedListener: Option[A => Unit] = None
 
-object Modals {
-
-  def wrapWithRawModal(show: Boolean = true, onBackgroundClick: Option[CallbackTo[Unit]] = None)(tagMod: TagMod*) = {
-    <.div( ^.classSet1("modal-wrapper","show" -> show, "hide" -> !show),
-      <.div( ^.cls := "modal-view",
-        <.div( ^.cls := "modal",
-          tagMod.toTagMod
-        )
-      ),
-      <.div( ^.cls := "modal-background",
-        onBackgroundClick.map( x => ^.onClick --> x ).getOrElse(EmptyVdom)
-      )
-    )
+  def updateState(state: A): Unit = {
+    currentState = state
+    stateUpdatedListener.foreach(_(state))
   }
 
-  def wrapWithClosingPane(show: Boolean, onCloseClick: CallbackTo[Unit], tagMod: TagMod*) = {
-    val button = Button(Icon.close, click = onCloseClick).small.rounded.secondary
+  def getCurrentState : A = currentState
 
-    wrapWithRawModal(show, Some(
-      onCloseClick
-    ))(
-      Pane(header = Some(PaneHeader(interactions = Seq(button))))(
-        tagMod :_*
-      )
-    )
-  }
+  def stateUpdated(event: A => Unit): Unit = stateUpdatedListener = Some(event)
 
+  def unsubscribe(): Unit = stateUpdatedListener = None
 }
-
