@@ -51,12 +51,12 @@ object Modals {
     )
   }
 
-  def wrapWithClosingPane(show: Boolean, onCloseClick: () => Unit, tagMod: TagMod*) = {
-    val button = Button(Icon.close, click = Callback(onCloseClick())).small.rounded.secondary
+  def wrapWithClosingPane(show: Boolean, onCloseClick: CallbackTo[Unit], tagMod: TagMod*) = {
+    val button = Button(Icon.close, click = onCloseClick).small.rounded.secondary
 
-    wrapWithRawModal(show, Some(Callback {
-      onCloseClick()
-    }))(
+    wrapWithRawModal(show, Some(
+      onCloseClick
+    ))(
       Pane(header = Some(PaneHeader(interactions = Seq(button))))(
         tagMod :_*
       )
