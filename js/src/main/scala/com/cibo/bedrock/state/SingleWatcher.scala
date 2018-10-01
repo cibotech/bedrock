@@ -30,6 +30,14 @@
 
 package com.cibo.bedrock.state
 
+import java.util.UUID
+
+import com.cibo.bedrock.elements.Button
+import japgolly.scalajs.react.{Callback, CallbackTo, ScalaComponent}
+import japgolly.scalajs.react.vdom.html_<^.{<, TagMod, VdomElement}
+
+import scala.collection.mutable
+
 // only supports one subscriber
 class SingleWatcher[A](initialState: A) {
   private var currentState: A = initialState
@@ -42,7 +50,70 @@ class SingleWatcher[A](initialState: A) {
 
   def getCurrentState : A = currentState
 
-  def stateUpdated(event: A => Unit): Unit = stateUpdatedListener = Some(event)
+  def subscribe(event: A => Unit): Unit = stateUpdatedListener = Some(event)
 
   def unsubscribe(): Unit = stateUpdatedListener = None
+}
+
+class MultiWatcher[A](initialState: A) {
+
+  private var currentState: A = initialState
+
+  private val stateUpdatedListener: mutable.Map[String, A => Unit] = mutable.Map.empty[String, A => Unit]
+
+  def updateState(state: A): Unit = {
+    currentState = state
+    stateUpdatedListener.foreach(_._2(state))
+  }
+
+  def getCurrentState : A = currentState
+
+  def subscribe(event: A => Unit): String = {
+    val id = UUID.randomUUID().toString
+    stateUpdatedListener.+=(id -> event)
+    id
+  }
+
+  def unsafeUnsubscribeAll(): Unit = stateUpdatedListener.clear()
+
+  def unsubscribe(id: String): Unit = {
+    stateUpdatedListener.-=(id)
+  }
+}
+
+class WatchingWrapper[A]{
+  import japgolly.scalajs.react.vdom.html_<^._
+
+  case class Props(watcher: MultiWatcher[A], contents: A => VdomElement)
+  case class State(watcherIdRef: Option[String] = None, currentState: A)
+
+  protected def render(p: Props, s: State): VdomElement = {
+    p.contents(p.watcher.getCurrentState)
+  }
+
+  val component = ScalaComponent.builder[Props, State]("Listing")
+    .initialStateFromProps{ props =>
+      State(None, props.watcher.getCurrentState)
+    }.render( x => render(x.props, x.state))
+    .componentDidMount{ $ =>
+
+     val id = $.props.watcher.subscribe({
+       newState: A => $.modState(_.copy(currentState = newState)).runNow()
+     })
+     $.modState(_.copy(watcherIdRef = Some(id)))
+    }.shouldComponentUpdate{ $ =>
+
+      CallbackTo($.currentState.currentState == $.nextState.currentState)
+    }.componentWillUnmount{ $ =>
+      Callback {
+        $.state.watcherIdRef.foreach { id =>
+          $.props.watcher.unsubscribe(id)
+        }
+      }
+    }.build
+
+  def apply(watcher: MultiWatcher[A])(contents: A => VdomElement) = {
+    component(Props(watcher, contents))
+  }
+
 }
