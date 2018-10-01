@@ -30,18 +30,18 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict.{column, row}
-import com.cibo.ui.elements.Size.{ExtraLarge, Large, Medium, Small}
-import com.cibo.ui.elements.Text.{Bold, Capitalized, ExtraBold, ExtraThin, LowerCase, Normal, NotTransformed, Thin, UpperCase}
-import com.cibo.ui.elements.{Button, Text}
-import com.cibo.ui.input.Form.form
-import com.cibo.ui.input._
-import com.cibo.ui.list.{BasicList, ElementList, ListItemElement, Listing}
+import com.cibo.bedrock.ReactGridStrict.{column, row}
+import com.cibo.bedrock.elements.Size.{ExtraLarge, Large, Medium, Small}
+import com.cibo.bedrock.elements.Text.{Bold, Capitalized, ExtraBold, ExtraThin, LowerCase, Normal, NotTransformed, Thin, UpperCase}
+import com.cibo.bedrock.elements.{Button, Text}
+import com.cibo.bedrock.input.Form.form
+import com.cibo.bedrock.input._
+import com.cibo.bedrock.list.{BasicList, ElementList, ListItemElement, Listing}
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react.{Callback, ScalaComponent}
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
-import com.cibo.ui._
+import com.cibo.bedrock._
 
 object TextExamplePage {
 

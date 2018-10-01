@@ -30,16 +30,16 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements.{Button, Icon, MenuButton, Text}
-import com.cibo.ui.input.Form._
-import com.cibo.ui.input._
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements.{Button, Icon, MenuButton, Text}
+import com.cibo.bedrock.input.Form._
+import com.cibo.bedrock.input._
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
-import com.cibo.ui.{Padding, _}
-import com.cibo.ui.list.{ListItemElement, Listing}
+import com.cibo.bedrock.{Padding, _}
+import com.cibo.bedrock.list.{ListItemElement, Listing}
 
 object InputExamplePage {
 

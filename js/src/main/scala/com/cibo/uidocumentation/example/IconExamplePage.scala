@@ -30,8 +30,8 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements.Icon
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements.Icon
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._

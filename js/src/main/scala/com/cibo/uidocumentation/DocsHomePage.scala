@@ -30,8 +30,8 @@
 
 package com.cibo.uidocumentation
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.navigation.NavigationPage
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.navigation.NavigationPage
 import com.cibo.uidocumentation.DocumentationRouter._
 import com.cibo.uidocumentation.example.MetaComponentExample
 import japgolly.scalajs.react._

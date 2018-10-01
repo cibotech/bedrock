@@ -30,8 +30,8 @@
 
 package com.cibo.uidocumentation
 
-import com.cibo.ui.navigation.{Navigation, NavigationPage}
-import com.cibo.ui.notifications.GlobalAlertSystem
+import com.cibo.bedrock.navigation.{Navigation, NavigationPage}
+import com.cibo.bedrock.notifications.GlobalAlertSystem
 import com.cibo.uidocumentation.DocumentationRouter.DocumentationPage
 import com.cibo.uidocumentation.example._
 import japgolly.scalajs.react.extra.router.{RouterConfigDsl, _}

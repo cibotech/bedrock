@@ -30,7 +30,7 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.elements.Statistic
+import com.cibo.bedrock.elements.Statistic
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._

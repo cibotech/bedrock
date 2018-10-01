@@ -32,8 +32,8 @@ package com.cibo.uidocumentation.example
 
 import java.time.LocalDate
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements._
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements._
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._

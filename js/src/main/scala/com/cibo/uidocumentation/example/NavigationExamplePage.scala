@@ -30,9 +30,9 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements.Tabs
-import com.cibo.ui.elements.Tabs.Tab
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements.Tabs
+import com.cibo.bedrock.elements.Tabs.Tab
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._

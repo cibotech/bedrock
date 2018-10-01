@@ -30,7 +30,7 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict.{column, row}
+import com.cibo.bedrock.ReactGridStrict.{column, row}
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{Callback, ScalaComponent}

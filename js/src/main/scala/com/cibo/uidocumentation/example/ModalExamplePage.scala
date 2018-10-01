@@ -30,15 +30,15 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.{Margin, Padding}
-import com.cibo.ui.ReactGridStrict.{column, row}
-import com.cibo.ui.elements.{Button, Modals}
-import com.cibo.ui.input.Form.{formElement, spreadForm}
-import com.cibo.ui.input.{CheckBoxInput, TextInput, ToggleInput}
-import com.cibo.ui.pane.{Pane, PaneHeader}
+import com.cibo.bedrock.{Margin, Padding}
+import com.cibo.bedrock.ReactGridStrict.{column, row}
+import com.cibo.bedrock.elements.{Button, Modals}
+import com.cibo.bedrock.input.Form.{formElement, spreadForm}
+import com.cibo.bedrock.input.{CheckBoxInput, TextInput, ToggleInput}
+import com.cibo.bedrock.pane.{Pane, PaneHeader}
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
-import com.cibo.ui._
-import com.cibo.ui.state.{QuickStateWrapper, ShowHideWrapper}
+import com.cibo.bedrock._
+import com.cibo.bedrock.state.{QuickStateWrapper, ShowHideWrapper}
 import japgolly.scalajs.react.vdom.html_<^._
 import ReactGridStrict._
 import com.cibo.uidocumentation.{CodeExample, SourceLink}

@@ -32,17 +32,17 @@ package com.cibo.uidocumentation.example
 
 import java.util.UUID
 
-import com.cibo.ui.elements.Icon
-import com.cibo.ui.list._
+import com.cibo.bedrock.elements.Icon
+import com.cibo.bedrock.list._
 import com.cibo.uidocumentation.{CodeExample, DocumentationRouter, GlobalNavState}
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.navigation.NavigationPage
-import com.cibo.ui.pane.{Pane, PaneHeader}
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.navigation.NavigationPage
+import com.cibo.bedrock.pane.{Pane, PaneHeader}
 import com.cibo.uidocumentation.DocumentationRouter.DocumentationPage
-import com.cibo.ui._
+import com.cibo.bedrock._
 import japgolly.scalajs.react.vdom.html_<^
 
 object ListExamplePage {

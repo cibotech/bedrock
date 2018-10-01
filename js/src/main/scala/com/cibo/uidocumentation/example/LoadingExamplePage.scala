@@ -30,13 +30,13 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict.{column, row}
-import com.cibo.ui.elements.Size.{ExtraLarge, Large, Medium, Small}
-import com.cibo.ui.list.Listing
+import com.cibo.bedrock.ReactGridStrict.{column, row}
+import com.cibo.bedrock.elements.Size.{ExtraLarge, Large, Medium, Small}
+import com.cibo.bedrock.list.Listing
 import com.cibo.uidocumentation.{CodeExample, LoadingSVG, LoadingSpinner}
 import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.vdom.html_<^._
-import com.cibo.ui._
+import com.cibo.bedrock._
 object LoadingExamplePage {
 
   val loadingSpinners = Seq(Small, Medium, Large, ExtraLarge).map(LoadingSpinner(_))

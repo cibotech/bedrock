@@ -30,10 +30,10 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements.{Button, Tabs}
-import com.cibo.ui.elements.Tabs.Tab
-import com.cibo.ui.notifications.{GlobalAlertSystem, Severity, Snack}
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements.{Button, Tabs}
+import com.cibo.bedrock.elements.Tabs.Tab
+import com.cibo.bedrock.notifications.{GlobalAlertSystem, Severity, Snack}
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._

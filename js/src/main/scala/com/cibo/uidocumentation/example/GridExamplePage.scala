@@ -30,13 +30,13 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict.{column, columnLg, columnMd, row}
-import com.cibo.ui.list.{ElementList, ListItemElement, Listing}
+import com.cibo.bedrock.ReactGridStrict.{column, columnLg, columnMd, row}
+import com.cibo.bedrock.list.{ElementList, ListItemElement, Listing}
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.html_<^._
-import com.cibo.ui._
+import com.cibo.bedrock._
 object GridExamplePage {
 
   def DashedDiv(tagMod: TagMod*) = <.div(

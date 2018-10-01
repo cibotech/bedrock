@@ -30,7 +30,7 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.elements.Calendar
+import com.cibo.bedrock.elements.Calendar
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 

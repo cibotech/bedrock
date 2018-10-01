@@ -30,12 +30,12 @@
 
 package com.cibo.uidocumentation
 
-import com.cibo.ui.Padding
+import com.cibo.bedrock.Padding
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, _}
 import org.scalajs.dom.document
 import org.scalajs.dom.ext.PimpedNodeList
-import com.cibo.ui.ReactGridStrict._
+import com.cibo.bedrock.ReactGridStrict._
 
 object SourceLink {
 

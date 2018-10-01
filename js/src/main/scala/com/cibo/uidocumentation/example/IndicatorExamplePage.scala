@@ -30,8 +30,8 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.elements.Size.{ExtraLarge, Large, Medium, Small}
-import com.cibo.ui.elements.{Icon, Indicator}
+import com.cibo.bedrock.elements.Size.{ExtraLarge, Large, Medium, Small}
+import com.cibo.bedrock.elements.{Icon, Indicator}
 import com.cibo.uidocumentation.CodeExample
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{<, _}

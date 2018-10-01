@@ -30,21 +30,21 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict.{column, row}
-import com.cibo.ui.elements.Size.{ExtraLarge, Large, Medium, Small}
-import com.cibo.ui.elements.Text.{Bold, Capitalized, ExtraBold, ExtraThin, LowerCase, Normal, NotTransformed, Thin, UpperCase}
-import com.cibo.ui.elements.{Button, Icon, Text}
-import com.cibo.ui.input.Form.form
-import com.cibo.ui.input._
-import com.cibo.ui.list._
+import com.cibo.bedrock.ReactGridStrict.{column, row}
+import com.cibo.bedrock.elements.Size.{ExtraLarge, Large, Medium, Small}
+import com.cibo.bedrock.elements.Text.{Bold, Capitalized, ExtraBold, ExtraThin, LowerCase, Normal, NotTransformed, Thin, UpperCase}
+import com.cibo.bedrock.elements.{Button, Icon, Text}
+import com.cibo.bedrock.input.Form.form
+import com.cibo.bedrock.input._
+import com.cibo.bedrock.list._
 import com.cibo.uidocumentation.{CodeExample, SourceLink}
 import japgolly.scalajs.react.{Callback, ScalaComponent}
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
-import com.cibo.ui._
-import com.cibo.ui.Padding
-import com.cibo.ui.compound.FilteringContentView
-import com.cibo.ui.pane.Pane
+import com.cibo.bedrock._
+import com.cibo.bedrock.Padding
+import com.cibo.bedrock.compound.FilteringContentView
+import com.cibo.bedrock.pane.Pane
 import japgolly.scalajs.react.component.builder.Lifecycle
 import japgolly.scalajs.react.vdom.html_<^
 

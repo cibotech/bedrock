@@ -30,9 +30,9 @@
 
 package com.cibo.uidocumentation
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements.Size.{ExtraLarge, Medium}
-import com.cibo.ui.elements.{Size, StandardSize}
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements.Size.{ExtraLarge, Medium}
+import com.cibo.bedrock.elements.{Size, StandardSize}
 import japgolly.scalajs.react.vdom.html_<^._
 
 case class LoadingSpinner(size: Size = Medium) extends StandardSize[LoadingSpinner]{

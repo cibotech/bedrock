@@ -30,14 +30,14 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.ui.ReactGridStrict._
-import com.cibo.ui.elements._
-import com.cibo.ui.pane.{LoadablePane, Pane, PaneHeader}
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements._
+import com.cibo.bedrock.pane.{LoadablePane, Pane, PaneHeader}
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
-import com.cibo.ui.elements.Text._
+import com.cibo.bedrock.elements.Text._
 import com.cibo.uidocumentation.CodeExample
-import com.cibo.ui._
+import com.cibo.bedrock._
 import com.cibo.uidocumentation.example.TableExamplePage.{TableKeys, rows}
 
 object PaneExamplePage {
