@@ -81,9 +81,7 @@ object MetaComponentExample {
               Button("click me".medium).small.margin(Some(Margin(5, 0, 0, 0)))
                 .onClick(Callback { println("clicked") })
             )
-          ),
-          SourceLink("MetaComponentExample.scala")
-
+          )
         )
       )
     }
