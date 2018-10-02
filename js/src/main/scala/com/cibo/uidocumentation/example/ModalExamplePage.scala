@@ -41,6 +41,7 @@ import com.cibo.bedrock._
 import com.cibo.bedrock.state.{QuickStateWrapper, ShowHideWrapper}
 import japgolly.scalajs.react.vdom.html_<^._
 import ReactGridStrict._
+import com.cibo.uidocumentation.example.StateExamplePage.testComponentTwo
 import com.cibo.uidocumentation.{CodeExample, SourceLink}
 import com.cibo.uidocumentation.example.ThemingExamplePage.{changeCurrentTheme, themes}
 
@@ -60,6 +61,7 @@ object ModalExamplePage {
           row(
             column(12)(
             <.h4("Modal Example"),
+              testComponentTwo(),
               ShowHideWrapper(false){ x =>
                 column(12)(
                   Modals.wrapWithClosingPane(x.isVisible, x.setHidden,

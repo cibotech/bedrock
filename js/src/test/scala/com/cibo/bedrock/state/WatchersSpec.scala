@@ -20,7 +20,7 @@ class WatchersSpec extends AsyncFunSpec with Matchers {
       var newFood = ""
 
       multiWatcher.subscribe(x => newFood = x.getOrElse(""))
-      multiWatcher.updateState(Some("Berries"))
+      multiWatcher.setState(Some("Berries"))
 
       multiWatcher.getCurrentState shouldEqual Some("Berries")
       newFood shouldEqual "Berries"
@@ -32,9 +32,9 @@ class WatchersSpec extends AsyncFunSpec with Matchers {
       var newFood = ""
 
       val id = multiWatcher.subscribe(x => newFood = x.getOrElse(""))
-      multiWatcher.updateState(Some("Berries"))
+      multiWatcher.setState(Some("Berries"))
       multiWatcher.unsubscribe(id)
-      multiWatcher.updateState(Some("Mushrooms"))
+      multiWatcher.setState(Some("Mushrooms"))
 
       multiWatcher.getCurrentState shouldEqual Some("Mushrooms")
       newFood shouldEqual "Berries"

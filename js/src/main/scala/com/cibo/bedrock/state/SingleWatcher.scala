@@ -61,9 +61,19 @@ class MultiWatcher[A](initialState: A) {
 
   private val stateUpdatedListener: mutable.Map[String, A => Unit] = mutable.Map.empty[String, A => Unit]
 
-  def updateState(state: A): Unit = {
+  def modState(stateMod: A => A): Unit = {
+    currentState = stateMod(currentState)
+    notifySubscribers()
+  }
+
+  def setState(state: A): Unit = {
     currentState = state
-    stateUpdatedListener.foreach(_._2(state))
+    notifySubscribers()
+  }
+
+  private def notifySubscribers(): Unit = {
+
+    stateUpdatedListener.foreach(_._2(currentState))
   }
 
   def getCurrentState : A = currentState
@@ -91,7 +101,7 @@ class WatchingWrapper[A]{
     p.contents(p.watcher.getCurrentState)
   }
 
-  val component = ScalaComponent.builder[Props, State]("Listing")
+  val component = ScalaComponent.builder[Props]("Listing")
     .initialStateFromProps{ props =>
       State(None, props.watcher.getCurrentState)
     }.render( x => render(x.props, x.state))
@@ -103,7 +113,7 @@ class WatchingWrapper[A]{
      $.modState(_.copy(watcherIdRef = Some(id)))
     }.shouldComponentUpdate{ $ =>
 
-      CallbackTo($.currentState.currentState == $.nextState.currentState)
+      CallbackTo($.currentState.currentState != $.nextState.currentState)
     }.componentWillUnmount{ $ =>
       Callback {
         $.state.watcherIdRef.foreach { id =>
