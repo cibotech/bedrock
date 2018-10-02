@@ -171,6 +171,7 @@
   -webkit-transform: translateZ(0); // fixes chrome rendering bug
 
   box-shadow: $nav-shadow;
+  overflow-y: auto;
 
   &.show{
     @media (max-width: $mobile-width-min) {
