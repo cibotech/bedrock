@@ -19,6 +19,9 @@
   @media (min-width: $mobile-width-min) {
     top: 0px;
   }
+  &.horizontal-menu{
+    left: 0px;
+  }
 }
 
 .retracted-menu-bar{
@@ -40,11 +43,41 @@
   }
 }
 
+@mixin menu-bar-icon(){
+  text-align: center;
+  line-height: 1;
+  i{
+    transition: background-color 0.2s;
+    &:hover{
+      background-color: darken($horizontal-background-color, 5%);
+    }
+    color: $menu-font-color;
+    background-color: $horizontal-background-color;
+    width: $dashboard-vertical-menu-height;
+    height: $dashboard-vertical-menu-height;
+    line-height: $dashboard-vertical-menu-height;
+    font-size: 20px;
+  }
+  @include noselect-pointer();
+  display: inline-block;
+}
+
 .retracted-menu-bar{
+
+  height: $dashboard-vertical-menu-height;
+  background-color: $horizontal-background-color;
+  color: $menu-font-color;
+  width: 100%;
+  position: fixed;
+  top: 0px; right: 0px; left: 0px;
+  z-index: 1000;
+
+  border-bottom: $dashboard-menu-border;
 
   @media (min-width: $mobile-width-min) {
     display: none;
   }
+
   &.left{
 
     @media (min-width: $mobile-width-min) {
@@ -85,15 +118,6 @@
       }
     }
   }
-  height: $dashboard-vertical-menu-height;
-  background-color: $horizontal-background-color;
-  color: $menu-font-color;
-  width: 100%;
-  position: fixed;
-  top: 0px; right: 0px; left: 0px;
-  z-index: 1000;
-
-  border-bottom: $dashboard-menu-border;
 
   .title{
     span{
@@ -111,52 +135,26 @@
       float: left;
     }
   }
+
   .settings-button{
     float: right;
-    text-align: center;
-    line-height: 1;
-
-    @include noselect-pointer();
-    i{
-      transition: background-color 0.2s;
-      &:hover{
-        background-color: darken($horizontal-background-color, 5%);
-      }
-      color: $menu-font-color;
-      border-left: $dashboard-menu-border;
-      background-color: $horizontal-background-color;
-      width: $dashboard-vertical-menu-height;
-      height: $dashboard-vertical-menu-height;
-      line-height: $dashboard-vertical-menu-height;
-      font-size: 20px;
-    }
-    display: inline-block;
+    @include menu-bar-icon();
   }
 
   .icon{
-    text-align: center;
-    line-height: 1;
-
-    @include noselect-pointer();
-    i{
-      transition: background-color 0.2s;
-      &:hover{
-        background-color: darken($horizontal-background-color, 5%);
-      }
-      color: $menu-font-color;
-      background-color: $horizontal-background-color;
-      width: $dashboard-vertical-menu-height;
-      height: $dashboard-vertical-menu-height;
-      line-height: $dashboard-vertical-menu-height;
-      font-size: 20px;
-    }
-    display: inline-block;
+    @include menu-bar-icon();
   }
 
   .menu-button{
     float: left;
   }
 
+
+  &.horizontal-menu{
+    @media (min-width: $mobile-width-min) {
+      display: block;
+    }
+  }
 }
 
 .dashboard-menu{
@@ -181,6 +179,17 @@
   &.hide{
     @media (max-width: $mobile-width-min) {
       left: ($dashboard-menu-width * -1) - 1px;
+    }
+  }
+
+  &.horizontal-menu{ // this should probably be completely separate
+    &.show{
+      left: 0px;
+    }
+
+    &.hide{
+      left: ($dashboard-menu-width * -1) - 1px;
+
     }
   }
 
