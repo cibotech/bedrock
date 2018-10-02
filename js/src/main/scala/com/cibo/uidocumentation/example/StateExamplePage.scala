@@ -30,61 +30,77 @@
 
 package com.cibo.uidocumentation.example
 
-import com.cibo.bedrock.{Margin, Padding}
-import com.cibo.bedrock.ReactGridStrict.{column, row}
-import com.cibo.bedrock.elements.{Button, Modals}
-import com.cibo.bedrock.input.Form.{formElement, spreadForm}
-import com.cibo.bedrock.input.{CheckBoxInput, TextInput, ToggleInput}
-import com.cibo.bedrock.pane.{Pane, PaneHeader}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
-import com.cibo.bedrock._
-import com.cibo.bedrock.state.{QuickStateWrapper, ShowHideWrapper}
+
+import com.cibo.bedrock.ReactGridStrict._
+import com.cibo.bedrock.elements.{Button, Tabs}
+import com.cibo.bedrock.elements.Tabs.Tab
+import com.cibo.bedrock.state.{MultiWatcher, QuickStateWrapper, WatchingWrapper}
+import com.cibo.uidocumentation.CodeExample
+import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
-import ReactGridStrict._
-import com.cibo.uidocumentation.example.StateExamplePage.testComponentTwo
-import com.cibo.uidocumentation.{CodeExample, SourceLink}
-import com.cibo.uidocumentation.example.ThemingExamplePage.{changeCurrentTheme, themes}
 
-object ModalExamplePage {
+object StateExamplePage {
 
-  case class Props()
-  case class State()
+  val store = new MultiWatcher[Int](0)
 
-  class Backend(val $ : BackendScope[Props, State]) {
+  val WatchingWrapper = new WatchingWrapper[Int]
 
-    def render(p: Props, s: State) = {
+  class Backend($: BackendScope[Unit, Int]) {
+    def render() = {
+
+
       <.div(
         ^.cls := "style-guide",
-        <.div(^.cls := "intro", <.div(^.cls := "interior", <.h4("Theming"))),
+        <.div(^.cls := "intro", <.div(^.cls := "interior", <.h4("State"))),
         <.div(
           ^.cls := "main-view",
-          row(
-            column(12)(
-            <.h4("Modal Example"),
-              ShowHideWrapper(false){ x =>
-                column(12)(
-                  Modals.wrapWithClosingPane(x.isVisible, x.setHidden,
-                    row(Padding(10), "Im a modal!".bold)
-                  ),
-                  Button("show modal")(^.onClick --> x.setVisible)
-                )
-              }
-            ),
-            SourceLink.example("ModalExamplePage.scala")
+          <.div(
+            ^.cls := "example-block",
+            row(
+              column(12)(
+                testComponentTwo(),
+                WatchingWrapper(store){ x =>
+                  <.div(
+                    (0 to x).map{ _ =>
+                      <.div(WatchingWrapper(store)(x => testComponentOne(x)))
+                    }.toTagMod
+                  )
+                }
+              )
+            )
           )
         )
       )
-
-
     }
   }
 
+
+
+  private val testComponentOne = ScalaComponent
+    .builder[Int]("ButtonExamples")
+    .render( $ => <.div(s"Value: ${$.props}"))
+    .build
+
+
+
+  private val testComponentTwo = ScalaComponent
+    .builder[Unit]("StateButtonExamples")
+    .render{ $ =>
+      <.div(
+        Button("Add wrapped watcher").onClick(Callback(store.modState(x => x + 1))),
+        Button("Add 10 watchers").onClick(Callback(store.modState(x => x + 10))),
+        Button("Remove a wrapped watcher").onClick(Callback(store.modState(x => x - 1))),
+        Button("Clear wrapped watchers").onClick(Callback(store.setState(0)))
+      )
+    }.build
+
+
   private val component = ScalaComponent
-    .builder[Props]("EnterpriseReport")
-    .initialState(State())
+    .builder[Unit]("StateExample")
+    .initialState(0)
     .renderBackend[Backend]
     .build
 
-  def apply() = component(Props())
+  def apply() = component()
 }
 

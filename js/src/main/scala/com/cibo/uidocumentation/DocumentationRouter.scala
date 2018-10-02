@@ -57,6 +57,7 @@ object DocumentationRouter {
   case object ComplexViewsDocs extends DocumentationPage
   case object NotificationDocs extends DocumentationPage
   case object ModalDocs extends DocumentationPage
+  case object StateDocs extends DocumentationPage
 
   val pages: Seq[NavigationPage[DocumentationPage]] = Seq(
     NavigationPage("Get Started", HomePage),
@@ -75,7 +76,8 @@ object DocumentationRouter {
     NavigationPage("Text", TextDocs),
     NavigationPage("Complex Views", ComplexViewsDocs),
     NavigationPage("Notifications", NotificationDocs),
-    NavigationPage("Modals", ModalDocs)
+    NavigationPage("Modals", ModalDocs),
+    NavigationPage("State", StateDocs)
   )
 
   def layout(c: RouterCtl[DocumentationPage], r: Resolution[DocumentationPage]) = {
@@ -105,7 +107,8 @@ object DocumentationRouter {
       | staticRoute("#text", TextDocs) ~> render(TextExamplePage.component())
       | staticRoute("#complex-views", ComplexViewsDocs) ~> render(ViewsExamplePage.component())
       | staticRoute("#notifications", NotificationDocs) ~> render(NotificationExamplePage.component())
-      | staticRoute("#modals", ModalDocs) ~> render(ModalExamplePage()))
+      | staticRoute("#modals", ModalDocs) ~> render(ModalExamplePage())
+      | staticRoute("#state", StateDocs) ~> render(StateExamplePage()))
     .notFound(HomePage)
       .renderWith(layout)
   }

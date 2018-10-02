@@ -30,19 +30,42 @@
 
 package com.cibo.bedrock.state
 
-// only supports one subscriber
-class SingleWatcher[A](initialState: A) {
-  private var currentState: A = initialState
-  private var stateUpdatedListener: Option[A => Unit] = None
+import japgolly.scalajs.react.{Callback, CallbackTo, ScalaComponent}
 
-  def updateState(state: A): Unit = {
-    currentState = state
-    stateUpdatedListener.foreach(_(state))
+
+class WatchingWrapper[A]{
+  import japgolly.scalajs.react.vdom.html_<^._
+
+  case class Props(watcher: MultiWatcher[A], contents: A => VdomElement)
+  case class State(watcherIdRef: Option[String] = None, currentState: A)
+
+  protected def render(p: Props, s: State): VdomElement = {
+    p.contents(p.watcher.getCurrentState)
   }
 
-  def getCurrentState : A = currentState
+  val component = ScalaComponent.builder[Props]("Listing")
+    .initialStateFromProps{ props =>
+      State(None, props.watcher.getCurrentState)
+    }.render( x => render(x.props, x.state))
+    .componentDidMount{ $ =>
 
-  def stateUpdated(event: A => Unit): Unit = stateUpdatedListener = Some(event)
+      val id = $.props.watcher.subscribe({
+        newState: A => $.modState(_.copy(currentState = newState)).runNow()
+      })
+      $.modState(_.copy(watcherIdRef = Some(id)))
+    }.shouldComponentUpdate{ $ =>
 
-  def unsubscribe(): Unit = stateUpdatedListener = None
+    CallbackTo($.currentState.currentState != $.nextState.currentState)
+  }.componentWillUnmount{ $ =>
+    Callback {
+      $.state.watcherIdRef.foreach { id =>
+        $.props.watcher.unsubscribe(id)
+      }
+    }
+  }.build
+
+  def apply(watcher: MultiWatcher[A])(contents: A => VdomElement) = {
+    component(Props(watcher, contents))
+  }
+
 }
