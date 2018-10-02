@@ -51,7 +51,7 @@ object StateExamplePage {
 
       <.div(
         ^.cls := "style-guide",
-        <.div(^.cls := "intro", <.div(^.cls := "interior", <.h4("Navigation"))),
+        <.div(^.cls := "intro", <.div(^.cls := "interior", <.h4("State"))),
         <.div(
           ^.cls := "main-view",
           <.div(
@@ -91,7 +91,6 @@ object StateExamplePage {
         Button("Add 10 watchers").onClick(Callback(store.modState(x => x + 10))),
         Button("Remove a wrapped watcher").onClick(Callback(store.modState(x => x - 1))),
         Button("Clear wrapped watchers").onClick(Callback(store.setState(0)))
-
       )
     }.build
 
