@@ -83,7 +83,7 @@ object StateExamplePage {
 
 
 
-  val testComponentTwo = ScalaComponent
+  private val testComponentTwo = ScalaComponent
     .builder[Unit]("StateButtonExamples")
     .render{ $ =>
       <.div(

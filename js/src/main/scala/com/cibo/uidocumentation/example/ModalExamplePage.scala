@@ -61,7 +61,6 @@ object ModalExamplePage {
           row(
             column(12)(
             <.h4("Modal Example"),
-              testComponentTwo(),
               ShowHideWrapper(false){ x =>
                 column(12)(
                   Modals.wrapWithClosingPane(x.isVisible, x.setHidden,
