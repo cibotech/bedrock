@@ -41,94 +41,8 @@ case class NavigationPage[T](name: String,
                              subContent: Option[TagMod] = None,
                              renderer: Option[NavigationPage[T] => TagMod] = None)
 
-trait Navigation[T] {
+trait Navigation[T] extends VerticalNav[T] with HorizonatalNav[T] {
 
-  case class Props[T](current: T,
-                      pages: Seq[NavigationPage[T]],
-                      home: T,
-                      title: String,
-                      router: RouterCtl[T],
-                      titleDiv: Option[TagMod],
-                      aboveNav: Option[TagMod],
-                      belowNav: Option[TagMod],
-                      enableSlim: Boolean,
-                      navIconSrc: Option[String])
-
-  case class State(displayMenuMobile: Option[Boolean] = None)
-
-  class Backend($ : BackendScope[Props[T], State]) {
-
-    def navigate(page: T, router: RouterCtl[T]): Callback = {
-      router.set(page)
-    }
-
-    private def clsAndIconForState(state: State): (String, Icon) = {
-      state.displayMenuMobile match {
-        case Some(x) if x  => ("show", Icon.close)
-        case Some(x) if !x => ("hide", Icon.menu)
-        case None          => ("", Icon.menu)
-      }
-    }
-
-    def render(props: Props[T], state: State) = {
-      val router = props.router
-
-      val (cls, icon) = clsAndIconForState(state)
-
-      val defaultHeader = <.a( ^.cls := "title-header",
-        <.div(^.cls := "title",
-              props.navIconSrc.map(src => <.img(^.src := src)).getOrElse(EmptyVdom),
-              <.span(props.title)),
-        ^.href := router.pathFor(props.home).value
-      )
-
-      def renderMainItem(page: NavigationPage[T]) = {
-        <.div(
-          <.a(
-            <.li(
-              ^.cls := s"menu-list-item ${if (page.link == (props.current)) "current" else ""}",
-              <.span(page.name),
-              ^.onClick --> {
-                $.modState(_.copy(displayMenuMobile = Some(false))).runNow()
-                navigate(page.link, router)
-              }
-            ),
-            ^.href := router.urlFor(page.link).value
-          ),
-          page.subContent.getOrElse(EmptyVdom)
-        )
-      }
-
-      val dashboardMenu = <.div(
-        <.div(^.cls := "menu-header", props.titleDiv.getOrElse(defaultHeader)),
-        props.aboveNav.getOrElse(EmptyVdom),
-        <.div(^.cls := "menu-items",
-              <.ul(^.cls := "menu-item-list", props.pages.toTagMod(page => renderMainItem(page)))),
-        props.belowNav.getOrElse(EmptyVdom)
-      )
-
-      val leftClass = if(props.enableSlim) "left"
-                      else ""
-
-      <.div(
-        <.div(
-          ^.cls := s"retracted-menu-bar $leftClass",
-          <.div(^.cls := "icon menu-button",
-                icon,
-                ^.onClick --> $.modState(x =>
-                  x.copy(displayMenuMobile = Some(!x.displayMenuMobile.getOrElse(false))))),
-          props.titleDiv.getOrElse(defaultHeader)
-        ),
-        <.div(^.cls := s"dashboard-menu $leftClass $cls", dashboardMenu)
-      )
-    }
-  }
-
-  val component = ScalaComponent
-    .builder[Props[T]]("Navigation")
-    .initialState(State(None))
-    .renderBackend[Backend]
-    .build
 
   def apply(current: T,
             pages: Seq[NavigationPage[T]],
@@ -140,7 +54,259 @@ trait Navigation[T] {
             belowNav: Option[TagMod] = None,
             enableSlim: Boolean = false,
             navIconSrc: Option[String] = None) = {
-    component(Props(current, pages, home, title, router, titleDiv, aboveNav, belowNav, enableSlim, navIconSrc))
+    verticalNavComponent(
+      VerticalNavProps[T](
+        current,
+        pages,
+        home,
+        title,
+        router,
+        titleDiv,
+        aboveNav,
+        belowNav,
+        enableSlim,
+        navIconSrc)
+    )
   }
 
+  def horizontal(current: T,
+                 pages: Seq[NavigationPage[T]],
+                 horizontalMenuItems: Seq[HorizontalNavItem[T]] = Seq(),
+                 home: T,
+                 router: RouterCtl[T],
+                 title: String = "",
+                 titleDiv: Option[TagMod] = None,
+                 aboveNav: Option[TagMod] = None,
+                 belowNav: Option[TagMod] = None,
+                 navIconSrc: Option[String] = None) = {
+    horizonatalNavComponent(
+      HorizontalNavProps[T](
+        current,
+        pages,
+        horizontalMenuItems,
+        home,
+        title,
+        router,
+        titleDiv,
+        aboveNav,
+        belowNav,
+        navIconSrc
+      )
+    )
+  }
+
+
+
+}
+
+trait VerticalNav[T] {
+
+  case class VerticalNavProps[T](current: T,
+                                 pages: Seq[NavigationPage[T]],
+                                 home: T,
+                                 title: String,
+                                 router: RouterCtl[T],
+                                 titleDiv: Option[TagMod],
+                                 aboveNav: Option[TagMod],
+                                 belowNav: Option[TagMod],
+                                 enableSlim: Boolean,
+                                 navIconSrc: Option[String])
+
+  case class VerticalNavState(displayMenuMobile: Option[Boolean] = None)
+
+  class VerticalNavBackend($ : BackendScope[VerticalNavProps[T], VerticalNavState]) {
+
+    def navigate(page: T, router: RouterCtl[T]): Callback = {
+      router.set(page)
+    }
+
+    private def clsAndIconForState(state: VerticalNavState): (String, Icon) = {
+      state.displayMenuMobile match {
+        case Some(x) if x  => ("show", Icon.close)
+        case Some(x) if !x => ("hide", Icon.menu)
+        case None          => ("", Icon.menu)
+      }
+    }
+
+    def renderMainItem(props: VerticalNavProps[T], page: NavigationPage[T]) = {
+      <.div(
+        <.a(
+          <.li(
+            ^.cls := s"menu-list-item ${if (page.link == (props.current)) "current" else ""}",
+            <.span(page.name),
+            ^.onClick --> {
+              $.modState(_.copy(displayMenuMobile = Some(false))).runNow()
+              navigate(page.link, props.router)
+            }
+          ),
+          ^.href := props.router.urlFor(page.link).value
+        ),
+        page.subContent.getOrElse(EmptyVdom)
+      )
+    }
+
+    def render(props: VerticalNavProps[T], state: VerticalNavState) = {
+      val router = props.router
+
+      val (cls, icon) = clsAndIconForState(state)
+
+      val defaultHeader = <.a( ^.cls := "title-header",
+        <.div(^.cls := "title",
+          props.navIconSrc.map(src => <.img(^.src := src)).getOrElse(EmptyVdom),
+          <.span(props.title)),
+        ^.href := router.pathFor(props.home).value
+      )
+
+      val dashboardMenu = <.div(
+        <.div(^.cls := "menu-header", props.titleDiv.getOrElse(defaultHeader)),
+        props.aboveNav.getOrElse(EmptyVdom),
+        <.div(^.cls := "menu-items",
+          <.ul(^.cls := "menu-item-list", props.pages.toTagMod(page => renderMainItem(props, page)))
+        ),
+        props.belowNav.getOrElse(EmptyVdom)
+      )
+
+      val leftClass = if(props.enableSlim) "left"
+      else ""
+
+      <.div(
+        <.div(
+          ^.cls := s"horizontal-menu-bar $leftClass",
+          <.div(^.cls := "icon menu-button",
+            icon,
+            ^.onClick --> $.modState(x =>
+              x.copy(displayMenuMobile = Some(!x.displayMenuMobile.getOrElse(false))))),
+          props.titleDiv.getOrElse(defaultHeader)
+        ),
+        <.div(^.cls := s"dashboard-menu $leftClass $cls", dashboardMenu)
+      )
+    }
+  }
+
+  val verticalNavComponent = ScalaComponent
+    .builder[VerticalNavProps[T]]("Navigation")
+    .initialState(VerticalNavState(None))
+    .renderBackend[VerticalNavBackend]
+    .build
+}
+
+case class HorizontalNavItem[T](contents: TagMod,
+                            pages: Seq[NavigationPage[T]],
+                            selfPage: Option[NavigationPage[T]])
+
+
+trait HorizonatalNav[T] {
+
+  case class HorizontalNavProps[T](current: T,
+                                   pages: Seq[NavigationPage[T]],
+                                   horizontalMenuItems: Seq[HorizontalNavItem[T]],
+                                   home: T,
+                                   title: String,
+                                   router: RouterCtl[T],
+                                   titleDiv: Option[TagMod],
+                                   beforeNav: Option[TagMod],
+                                   afterNav: Option[TagMod],
+                                   navIconSrc: Option[String])
+
+  case class HorizontalNavState(displayMenuMobile: Option[Boolean])
+
+  class HorizontalNavBackend($ : BackendScope[HorizontalNavProps[T], HorizontalNavState]) {
+
+    def navigate(page: T, router: RouterCtl[T]): Callback = {
+      router.set(page)
+    }
+
+    val x: Seq[(String, String)] = Seq(("",""), ("", ""))
+    val y: (Seq[String], Seq[String]) = x.unzip
+
+    private def clsAndIconForState(state: HorizontalNavState): (String, Icon) = {
+      state.displayMenuMobile match {
+        case Some(x) if x  => ("show", Icon.close)
+        case Some(x) if !x => ("hide", Icon.menu)
+        case None          => ("", Icon.menu)
+      }
+    }
+
+    def renderMainItem(props: HorizontalNavProps[T], page: NavigationPage[T]) = {
+      <.div(
+        <.a(
+          <.li(
+            ^.cls := s"menu-list-item ${if (page.link == (props.current)) "current" else ""}",
+            <.span(page.name),
+            ^.onClick --> {
+              $.modState(_.copy(displayMenuMobile = Some(false))).runNow()
+              navigate(page.link, props.router)
+            }
+          ),
+          ^.href := props.router.urlFor(page.link).value
+        ),
+        page.subContent.getOrElse(EmptyVdom)
+      )
+    }
+
+    def renderHorizontalNavigations(router: RouterCtl[T], seq: Seq[HorizontalNavItem[T]]) = {
+      <.ul( ^.cls := "horizontal-items",
+        seq.toTagMod{ hoz =>
+          hoz.selfPage.fold(EmptyVdom)(x => router.link(x.link))(
+            <.li( ^.cls := "horizontal-root-nav",
+              ^.classSet1("horizontal-nav", "dropdown" -> hoz.pages.nonEmpty),
+              hoz.contents,
+              if(hoz.pages.nonEmpty){
+                <.div( ^.cls := "dropdown-nav",
+                  <.ul( ^.cls := "sub-navigation",
+                    hoz.pages.toTagMod { insidePage =>
+                      router.link(insidePage.link)(<.li(insidePage.name))
+                    }
+                  )
+                )
+              } else EmptyVdom
+            )
+          )
+        }
+      )
+    }
+
+    def render(props: HorizontalNavProps[T], state: HorizontalNavState) = {
+      val router = props.router
+
+      val (cls, icon) = clsAndIconForState(state)
+
+      val defaultHeader = <.a( ^.cls := "title-header",
+        <.div(^.cls := "title",
+          props.navIconSrc.map(src => <.img(^.src := src)).getOrElse(EmptyVdom),
+          <.span(props.title)),
+        ^.href := router.pathFor(props.home).value
+      )
+
+
+
+      val dashboardMenu = <.div(
+        <.div(^.cls := "menu-header", props.titleDiv.getOrElse(defaultHeader)),
+        props.beforeNav.getOrElse(EmptyVdom),
+        <.div(^.cls := "menu-items",
+          <.ul(^.cls := "menu-item-list", props.pages.toTagMod(page => renderMainItem(props, page)))
+        ),
+        props.afterNav.getOrElse(EmptyVdom)
+      )
+
+      <.div(
+        <.div(
+          ^.cls := s"horizontal-menu-bar horizontal-menu",
+          <.div(^.cls := "icon menu-button",
+            icon,
+            ^.onClick --> $.modState(x =>
+              x.copy(displayMenuMobile = Some(!x.displayMenuMobile.getOrElse(false))))),
+          props.titleDiv.getOrElse(defaultHeader),
+          renderHorizontalNavigations(props.router, props.horizontalMenuItems)
+        ),
+        <.div(^.cls := s"dashboard-menu horizontal-menu $cls", dashboardMenu)
+      )
+    }
+  }
+
+  val horizonatalNavComponent = ScalaComponent
+    .builder[HorizontalNavProps[T]]("Navigation")
+    .initialState(HorizontalNavState(Some(false)))
+    .renderBackend[HorizontalNavBackend]
+    .build
 }

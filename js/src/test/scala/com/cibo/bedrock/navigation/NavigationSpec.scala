@@ -82,7 +82,7 @@ abstract class TestRouter {
   case object TestPageTwo extends TestPage
 
   def dummyNavigation(router: RouterCtl[TestPage])
-    : Unmounted[DummyNavigation.Props[TestPage], DummyNavigation.State, DummyNavigation.Backend]
+    : Unmounted[DummyNavigation.VerticalNavProps[TestPage], DummyNavigation.VerticalNavState, DummyNavigation.VerticalNavBackend]
 
   val navs: Seq[NavigationPage[TestPage]] = Seq(
     NavigationPage("Home", TestPageOne),

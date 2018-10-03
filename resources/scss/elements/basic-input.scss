@@ -15,6 +15,24 @@ input{
   }
 }
 
+@mixin input-statuses(){
+  &.bd-success {
+    @include input-border($success-color);
+  }
+
+  &.bd-info {
+    @include input-border($input-border-inactive-color);
+  }
+
+  &.bd-warning {
+    @include input-border($warning);
+  }
+
+  &.bd-error {
+    @include input-border($error-color);
+  }
+}
+
 .input{
 
   span{
@@ -28,7 +46,7 @@ input{
     width: 200px;
     max-width: 100%;
     @include input-border($input-border-inactive-color);
-
+    @include input-statuses();
   }
 
   select{
@@ -67,6 +85,8 @@ select{
   transition: border-color 0.2s, background-color 0.2s;
 
   @include input-border($input-border-inactive-color);
+  @include input-statuses();
+
   &:focus{
     @include input-border($input-border-active-color);
     background-color: $input-bg-active;
@@ -100,6 +120,8 @@ input[type = "text"]{
   @include input-border($input-border-inactive-color);
 
   transition: border-color 0.2s, background-color 0.2s;
+
+  @include input-statuses();
 
   &:focus{
     @include input-border($input-border-active-color);

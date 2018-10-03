@@ -30,6 +30,7 @@
 
 package com.cibo.bedrock.input
 
+import com.cibo.bedrock.notifications.Severity
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, _}
 
@@ -40,8 +41,10 @@ object TextInput {
     placeHolder: Option[String],
     onChange: String => Callback,
     onKeypress: Option[ReactKeyboardEvent => Callback],
-    onFocus: Option[Boolean => Callback]
+    onFocus: Option[Boolean => Callback],
+    status: Option[Severity]
   )
+
   case class State(current: String)
 
   class Backend(val $ : BackendScope[Props, State]) {
@@ -61,6 +64,7 @@ object TextInput {
       val focusMod = p.onFocus.map(e => Seq(^.onFocus --> e(true), ^.onBlur --> e(false))
                       .toTagMod(identity)).getOrElse(EmptyVdom)
       <.input(
+        ^.cls := s"${p.status.map(_.repr).getOrElse("")}",
         ^.placeholder := placeholderText(p),
         ^.value := s.current,
         ^.onChange ==> handleChange(p.onChange),
@@ -86,11 +90,11 @@ object TextInput {
 
   def apply(initialValue: String, onChange: String => Callback,
             onKeypress: Option[ReactKeyboardEvent => Callback] = None,
-            onFocus: Option[Boolean => Callback] = None) =
-    component(Props(initialValue, None, onChange, onKeypress, onFocus))
+            onFocus: Option[Boolean => Callback] = None, status: Option[Severity] = None) =
+    component(Props(initialValue, None, onChange, onKeypress, onFocus, status))
 
   def withPlaceHolder(placeHolder: String, onChange: String => Callback,
                       onKeypress: Option[ReactKeyboardEvent => Callback] = None,
-                      onFocus: Option[Boolean => Callback] = None) =
-    component(Props("", Some(placeHolder), onChange, onKeypress, onFocus))
+                      onFocus: Option[Boolean => Callback] = None, status: Option[Severity] = None) =
+    component(Props("", Some(placeHolder), onChange, onKeypress, onFocus, status))
 }

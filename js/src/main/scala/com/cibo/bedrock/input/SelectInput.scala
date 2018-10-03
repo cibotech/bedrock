@@ -31,13 +31,19 @@
 package com.cibo.bedrock.input
 
 import com.cibo.bedrock.elements.Icon
+import com.cibo.bedrock.notifications.Severity
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, _}
 import org.scalajs.dom.html
 
 class SelectInput[T] {
 
-  case class Props(values: Seq[T], initialValue: T, visualizer: T => String, onChange: T => Callback)
+  case class Props(values: Seq[T],
+                   initialValue: T,
+                   visualizer: T => String,
+                   onChange: T => Callback,
+                   status: Option[Severity]
+                  )
 
   case class State(current: T)
 
@@ -58,6 +64,7 @@ class SelectInput[T] {
 
       <.div( ^.cls := "select-wrapper",
         <.select(
+          ^.cls := s"${p.status.map(_.repr).getOrElse("")}",
         ^.value := p.visualizer(s.current),
         ^.onChange ==> handleChange(p.onChange),
         values.toTagMod
@@ -73,13 +80,13 @@ class SelectInput[T] {
     .renderBackend[Backend]
     .build
 
-  def newComponent(values: Seq[T], initialValue: T, visualizer: T=> String, onChange: T => Callback) =
-    component(this.Props(values,initialValue,visualizer,onChange))
+  def newComponent(values: Seq[T], initialValue: T, visualizer: T=> String, onChange: T => Callback, status: Option[Severity] = None) =
+    component(this.Props(values, initialValue, visualizer, onChange, status))
 
 }
 
 object SelectInput {
   val stringInput = new SelectInput[String]
-  def apply(values: Seq[String], initialValue: String, onChange: String => Callback) =
-    stringInput.newComponent(values, initialValue, identity, onChange)
+  def apply(values: Seq[String], initialValue: String, onChange: String => Callback, status: Option[Severity] = None) =
+    stringInput.newComponent(values, initialValue, identity, onChange, status)
 }

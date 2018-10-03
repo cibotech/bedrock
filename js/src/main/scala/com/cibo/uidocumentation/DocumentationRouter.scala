@@ -30,7 +30,7 @@
 
 package com.cibo.uidocumentation
 
-import com.cibo.bedrock.navigation.{Navigation, NavigationPage}
+import com.cibo.bedrock.navigation.{HorizontalNavItem, Navigation, NavigationPage}
 import com.cibo.bedrock.notifications.GlobalAlertSystem
 import com.cibo.uidocumentation.DocumentationRouter.DocumentationPage
 import com.cibo.uidocumentation.example._
