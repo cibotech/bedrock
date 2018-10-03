@@ -19,12 +19,14 @@
   @media (min-width: $mobile-width-min) {
     top: 0px;
   }
+
   &.horizontal-menu{
     left: 0px;
+    top: $dashboard-vertical-menu-height;
   }
 }
 
-.retracted-menu-bar{
+.horizontal-menu-bar{
   &.left{
     @media (min-width: $mobile-width-min) {
 
@@ -62,7 +64,7 @@
   display: inline-block;
 }
 
-.retracted-menu-bar{
+.horizontal-menu-bar{
 
   height: $dashboard-vertical-menu-height;
   background-color: $horizontal-background-color;
@@ -119,7 +121,13 @@
     }
   }
 
+  .title-header{
+    text-decoration: none;
+  }
+
   .title{
+    display: inline-flex;
+
     span{
       color: $menu-font-color;
       padding: 10px;
@@ -150,11 +158,78 @@
   }
 
 
-  &.horizontal-menu{
+  &.horizontal-menu {
     @media (min-width: $mobile-width-min) {
       display: block;
+      .menu-button {
+        display: none;
+      }
+    }
+    @media (max-width: $mobile-width-min) {
+
     }
   }
+}
+
+.horizontal-items{
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  height: $dashboard-vertical-menu-height;
+  position: absolute;
+  top: 0px;
+  .horizontal-root-nav{
+    display: inline-flex;
+    position: relative;
+    padding: 0px 10px;
+    justify-content: center;
+    align-items: center;
+    .dropdown-nav{
+      position: absolute;
+      top: $dashboard-vertical-menu-height;
+      left: 0px;
+      background-color: $nav-color;
+      transition: max-height 0.2s;
+      max-height: 0px;
+      overflow: hidden;
+      .sub-navigation{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        a{
+          color: $menu-font-color;
+          text-decoration: none;
+          font-weight: 400;
+        }
+        li{
+          @include noselect-pointer();
+          transition: background-color 0.2s;
+          padding: $menu-item-padding;
+          &:hover{
+            background-color: darken($nav-color, 10%);
+          }
+          color: $menu-font-color;
+          font-weight: 500;
+          font-size: $menu-item-font-size;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    @include noselect-pointer();
+    transition: background-color 0.2s;
+
+    &:hover{
+      background-color: darken($nav-color, 10%);
+
+      .dropdown-nav{
+        max-height: 2000px;
+      }
+    }
+  }
+
 }
 
 .dashboard-menu{
@@ -266,7 +341,6 @@
 
         @include hover-menu-item();
         @include current-menu-item();
-
       }
     }
   }

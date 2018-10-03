@@ -30,7 +30,7 @@
 
 package com.cibo.uidocumentation
 
-import com.cibo.bedrock.navigation.{Navigation, NavigationPage}
+import com.cibo.bedrock.navigation.{HorizontalNavItem, Navigation, NavigationPage}
 import com.cibo.bedrock.notifications.GlobalAlertSystem
 import com.cibo.uidocumentation.DocumentationRouter.DocumentationPage
 import com.cibo.uidocumentation.example._
@@ -82,7 +82,10 @@ object DocumentationRouter {
 
   def layout(c: RouterCtl[DocumentationPage], r: Resolution[DocumentationPage]) = {
 
-    val navigation = DocumentationNav.horizontal(r.page, pages, HomePage, c, "Bedrock")
+    val navigation = DocumentationNav.horizontal(r.page, pages, Seq(
+      HorizontalNavItem("Documentation", pages = pages, None),
+      HorizontalNavItem("Documentation", pages = pages, None)
+    ), HomePage, c, "Bedrock")
 
     GlobalNavState._setCtl(c)
     <.div(^.cls := "dashboard-viewport horizontal-menu", GlobalAlertSystem(), navigation, r.render())

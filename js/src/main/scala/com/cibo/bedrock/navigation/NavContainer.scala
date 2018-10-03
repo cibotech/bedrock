@@ -73,6 +73,7 @@ trait Navigation[T] {
 
   def horizontal(current: T,
                  pages: Seq[NavigationPage[T]],
+                 horizontalMenuItems: Seq[HorizontalNavItem[T]] = Seq(),
                  home: T,
                  router: RouterCtl[T],
                  title: String = "",
@@ -84,13 +85,15 @@ trait Navigation[T] {
       horizonatalNav.Props[T](
         current,
         pages,
+        horizontalMenuItems,
         home,
         title,
         router,
         titleDiv,
         aboveNav,
         belowNav,
-        navIconSrc)
+        navIconSrc
+      )
     )
   }
 
@@ -169,7 +172,7 @@ class VerticalNav[T] {
 
       <.div(
         <.div(
-          ^.cls := s"retracted-menu-bar $leftClass",
+          ^.cls := s"horizontal-menu-bar $leftClass",
           <.div(^.cls := "icon menu-button",
             icon,
             ^.onClick --> $.modState(x =>
@@ -188,10 +191,15 @@ class VerticalNav[T] {
     .build
 }
 
+case class HorizontalNavItem[T](contents: TagMod,
+                            pages: Seq[NavigationPage[T]],
+                            selfPage: Option[NavigationPage[T]])
+
 class HorizonatalNav[T] {
 
   case class Props[T](current: T,
                       pages: Seq[NavigationPage[T]],
+                      horizontalMenuItems: Seq[HorizontalNavItem[T]],
                       home: T,
                       title: String,
                       router: RouterCtl[T],
@@ -200,7 +208,7 @@ class HorizonatalNav[T] {
                       afterNav: Option[TagMod],
                       navIconSrc: Option[String])
 
-  case class State(displayMenuMobile: Option[Boolean] = Some(false))
+  case class State(displayMenuMobile: Option[Boolean])
 
   class Backend($ : BackendScope[Props[T], State]) {
 
@@ -236,6 +244,28 @@ class HorizonatalNav[T] {
       )
     }
 
+    def renderHorizontalNavigations(router: RouterCtl[T], seq: Seq[HorizontalNavItem[T]]) = {
+      <.ul( ^.cls := "horizontal-items",
+        seq.toTagMod{ hoz =>
+          hoz.selfPage.fold(EmptyVdom)(x => router.link(x.link))(
+            <.li( ^.cls := "horizontal-root-nav",
+              ^.classSet1("horizontal-nav", "dropdown" -> hoz.pages.nonEmpty),
+              hoz.contents,
+              if(hoz.pages.nonEmpty){
+                <.div( ^.cls := "dropdown-nav",
+                  <.ul( ^.cls := "sub-navigation",
+                    hoz.pages.toTagMod { insidePage =>
+                      router.link(insidePage.link)(<.li(insidePage.name))
+                    }
+                  )
+                )
+              } else EmptyVdom
+            )
+          )
+        }
+      )
+    }
+
     def render(props: Props[T], state: State) = {
       val router = props.router
 
@@ -261,12 +291,13 @@ class HorizonatalNav[T] {
 
       <.div(
         <.div(
-          ^.cls := s"retracted-menu-bar horizontal-menu",
+          ^.cls := s"horizontal-menu-bar horizontal-menu",
           <.div(^.cls := "icon menu-button",
             icon,
             ^.onClick --> $.modState(x =>
               x.copy(displayMenuMobile = Some(!x.displayMenuMobile.getOrElse(false))))),
-          props.titleDiv.getOrElse(defaultHeader)
+          props.titleDiv.getOrElse(defaultHeader),
+          renderHorizontalNavigations(props.router, props.horizontalMenuItems)
         ),
         <.div(^.cls := s"dashboard-menu horizontal-menu $cls", dashboardMenu)
       )
@@ -275,7 +306,7 @@ class HorizonatalNav[T] {
 
   val component = ScalaComponent
     .builder[Props[T]]("Navigation")
-    .initialState(State(None))
+    .initialState(State(Some(false)))
     .renderBackend[Backend]
     .build
 }
