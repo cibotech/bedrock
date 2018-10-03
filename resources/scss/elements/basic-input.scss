@@ -25,7 +25,7 @@ input{
   }
 
   &.bd-warning {
-    @include input-border($warning);
+    @include input-border($warning-color);
   }
 
   &.bd-error {

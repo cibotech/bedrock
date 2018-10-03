@@ -1,24 +1,26 @@
 @import '../colors';
 
 .status-indicator {
+
   display: inline-block;
   font-size: 1em;
-  width: 1em;
-  height: 1em;
-  background-color: $neutral;
+  width: $status-indicator-base-size;
+  height: $status-indicator-base-size;
+  background-color: $neutral-color;
   border-radius: 100%;
-  border: 0.125em solid white;
+  border: $status-indicator-border;
+
   box-sizing: border-box;
   /* Statuses */
   &.success { background-color: $success-color; }
-  &.neutral { background-color: $neutral; } //default
-  &.warning { background-color: $warning; }
+  &.neutral { background-color: $neutral-color; } //default
+  &.warning { background-color: $warning-color; }
   &.danger { background-color: $error-color; }
   /* Sizes (font-size scales width & height values) */
-  &.small { font-size: 0.75rem }
-  &.medium { font-size: 1.25rem } // default
-  &.large { font-size: 1.5rem }
-  &.extra-large { font-size: 2.5rem }
+  &.small { font-size: $status-indicator-base-size * 0.75 }
+  &.medium { font-size: $status-indicator-base-size * 1.25 } // default
+  &.large { font-size: $status-indicator-base-size * 1.5 }
+  &.extra-large { font-size: $status-indicator-base-size * 2.5 }
   /* Modifiers */
   &.attached {
     position: absolute;
@@ -26,6 +28,9 @@
     top: -0.25em;
     pointer-events: none;
   }
+
+  transition: box-shadow 0.2s;
+
   &.clickable:hover {
     @include noselect-pointer();
     box-shadow: 0 0 2px 2px $shadow;

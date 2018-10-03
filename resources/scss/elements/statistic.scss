@@ -16,8 +16,8 @@
   font-weight: 500;
   line-height: 1;
   &.success { color: $success-color; }
-  &.warning { color: $warning; }
-  &.danger { color: $danger; }
+  &.warning { color: $warning-color; }
+  &.danger { color: $error-color; }
 }
 
 .statistic .units {

@@ -22,6 +22,8 @@ $card-background: #FFFFFF;
 
 $error-color: #F0522E;
 $success-color: #A2B43B;
+$warning-color: #b58105;
+$neutral-color: $secondary-color;
 $contrast-with-status: #f0f0f0;
 
 $line-separator: rgba(0, 0, 0, 0.1);
@@ -51,6 +53,8 @@ $button-base-padding-lr: 16px;
 $button-base-padding-tb: 8px;
 $button-border-raidius: 4px;
 $button-base-font-size: 12px;
+
+$button-group-base-height: 40px;
 
 // Navigation
 $inverse-nav-color: #545453;
@@ -141,6 +145,10 @@ $toggle-width: 40px;
 
 // Loading
 $loading-spinner-color: $font-color;
+
+// Indicators
+$status-indicator-border: 0.125em solid white;
+$status-indicator-base-size: 1em;
 
 // default mixins place overrides below
 @import "../stylemixins/stylemixins";

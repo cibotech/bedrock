@@ -408,32 +408,3 @@
     }
   }
 }
-
-.tabs{
-  margin: auto;
-  .tab{
-    font-size: 16px;
-    font-weight: 500;
-
-    &:first-child{
-      margin-left: 0px;
-    }
-    @include noselect-pointer();
-    margin: 5px 3px 0px 3px;
-    padding: 2px 20px 2px 20px;
-    display: inline-block;
-    list-style: none;
-    border-bottom: 3px solid $secondary-color;
-
-    transition: border-color 0.1s;
-    &:hover{
-      border-bottom: 3px solid $complement-secondary;
-    }
-    &.current{
-      border-bottom: 3px solid $primary-color;
-    }
-    &.extended{
-      width: auto;
-    }
-  }
-}

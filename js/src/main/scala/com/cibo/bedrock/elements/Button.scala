@@ -36,7 +36,7 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.vdom.html_<^._
 import com.cibo.bedrock._
 import com.cibo.bedrock.Margin._
-sealed abstract class ButtonSignificance(val className: String)
+sealed abstract class ButtonSignificance(val cssName: String)
 
 case class Button(content: Either[Text, TagMod],
                   click: Callback,
@@ -57,7 +57,7 @@ case class Button(content: Either[Text, TagMod],
       ^.classSet(
         size.cssName -> true,
         "round" -> round,
-        significance.className -> true
+        significance.cssName -> true
       ),
       margin.map(toTagMod).getOrElse(EmptyVdom),
       inner,
