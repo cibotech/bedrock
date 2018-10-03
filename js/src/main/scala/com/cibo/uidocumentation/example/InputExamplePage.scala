@@ -40,6 +40,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
 import com.cibo.bedrock.{Padding, _}
 import com.cibo.bedrock.list.{ListItemElement, Listing}
+import com.cibo.bedrock.notifications.Severity
 
 object InputExamplePage {
 
@@ -140,6 +141,14 @@ object InputExamplePage {
             ),
             column(12)(
               form("Text".bold, TextInput.withPlaceHolder("This is placeholder text", onChange = { selected: String =>
+                Callback(println(s"Input is"))
+              }))
+            ),
+            column(12)(
+              form("Text with error status".bold, TextInput.withPlaceHolder(
+                "This is placeholder text",
+                status = Some(Severity.Error),
+                onChange = { selected: String =>
                 Callback(println(s"Input is"))
               }))
             ),

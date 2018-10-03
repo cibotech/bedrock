@@ -82,13 +82,10 @@ object DocumentationRouter {
 
   def layout(c: RouterCtl[DocumentationPage], r: Resolution[DocumentationPage]) = {
 
-    val navigation = DocumentationNav.horizontal(r.page, pages, Seq(
-      HorizontalNavItem("Documentation", pages = pages, None),
-      HorizontalNavItem("Documentation", pages = pages, None)
-    ), HomePage, c, "Bedrock")
+    val navigation = DocumentationNav(r.page, pages, HomePage, c, "Bedrock")
 
     GlobalNavState._setCtl(c)
-    <.div(^.cls := "dashboard-viewport horizontal-menu", GlobalAlertSystem(), navigation, r.render())
+    <.div(^.cls := "dashboard-viewport", GlobalAlertSystem(), navigation, r.render())
   }
 
   val config = RouterConfigDsl[DocumentationPage].buildConfig { dsl =>
