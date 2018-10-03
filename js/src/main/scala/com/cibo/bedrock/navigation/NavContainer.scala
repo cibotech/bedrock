@@ -41,10 +41,8 @@ case class NavigationPage[T](name: String,
                              subContent: Option[TagMod] = None,
                              renderer: Option[NavigationPage[T] => TagMod] = None)
 
-trait Navigation[T] {
+trait Navigation[T] extends VerticalNav[T] with HorizonatalNav[T] {
 
-  protected lazy val verticalNav = new VerticalNav[T]
-  protected lazy val horizonatalNav = new HorizonatalNav[T]
 
   def apply(current: T,
             pages: Seq[NavigationPage[T]],
@@ -56,8 +54,8 @@ trait Navigation[T] {
             belowNav: Option[TagMod] = None,
             enableSlim: Boolean = false,
             navIconSrc: Option[String] = None) = {
-    verticalNav.component(
-      verticalNav.Props[T](
+    verticalNavComponent(
+      VerticalNavProps[T](
         current,
         pages,
         home,
@@ -81,8 +79,8 @@ trait Navigation[T] {
                  aboveNav: Option[TagMod] = None,
                  belowNav: Option[TagMod] = None,
                  navIconSrc: Option[String] = None) = {
-    horizonatalNav.component(
-      horizonatalNav.Props[T](
+    horizonatalNavComponent(
+      HorizontalNavProps[T](
         current,
         pages,
         horizontalMenuItems,
@@ -101,27 +99,28 @@ trait Navigation[T] {
 
 }
 
-class VerticalNav[T] {
-  case class Props[T](current: T,
-                      pages: Seq[NavigationPage[T]],
-                      home: T,
-                      title: String,
-                      router: RouterCtl[T],
-                      titleDiv: Option[TagMod],
-                      aboveNav: Option[TagMod],
-                      belowNav: Option[TagMod],
-                      enableSlim: Boolean,
-                      navIconSrc: Option[String])
+trait VerticalNav[T] {
 
-  case class State(displayMenuMobile: Option[Boolean] = None)
+  case class VerticalNavProps[T](current: T,
+                                 pages: Seq[NavigationPage[T]],
+                                 home: T,
+                                 title: String,
+                                 router: RouterCtl[T],
+                                 titleDiv: Option[TagMod],
+                                 aboveNav: Option[TagMod],
+                                 belowNav: Option[TagMod],
+                                 enableSlim: Boolean,
+                                 navIconSrc: Option[String])
 
-  class Backend($ : BackendScope[Props[T], State]) {
+  case class VerticalNavState(displayMenuMobile: Option[Boolean] = None)
+
+  class VerticalNavBackend($ : BackendScope[VerticalNavProps[T], VerticalNavState]) {
 
     def navigate(page: T, router: RouterCtl[T]): Callback = {
       router.set(page)
     }
 
-    private def clsAndIconForState(state: State): (String, Icon) = {
+    private def clsAndIconForState(state: VerticalNavState): (String, Icon) = {
       state.displayMenuMobile match {
         case Some(x) if x  => ("show", Icon.close)
         case Some(x) if !x => ("hide", Icon.menu)
@@ -129,7 +128,7 @@ class VerticalNav[T] {
       }
     }
 
-    def renderMainItem(props: Props[T], page: NavigationPage[T]) = {
+    def renderMainItem(props: VerticalNavProps[T], page: NavigationPage[T]) = {
       <.div(
         <.a(
           <.li(
@@ -146,7 +145,7 @@ class VerticalNav[T] {
       )
     }
 
-    def render(props: Props[T], state: State) = {
+    def render(props: VerticalNavProps[T], state: VerticalNavState) = {
       val router = props.router
 
       val (cls, icon) = clsAndIconForState(state)
@@ -184,10 +183,10 @@ class VerticalNav[T] {
     }
   }
 
-  val component = ScalaComponent
-    .builder[Props[T]]("Navigation")
-    .initialState(State(None))
-    .renderBackend[Backend]
+  val verticalNavComponent = ScalaComponent
+    .builder[VerticalNavProps[T]]("Navigation")
+    .initialState(VerticalNavState(None))
+    .renderBackend[VerticalNavBackend]
     .build
 }
 
@@ -195,22 +194,23 @@ case class HorizontalNavItem[T](contents: TagMod,
                             pages: Seq[NavigationPage[T]],
                             selfPage: Option[NavigationPage[T]])
 
-class HorizonatalNav[T] {
 
-  case class Props[T](current: T,
-                      pages: Seq[NavigationPage[T]],
-                      horizontalMenuItems: Seq[HorizontalNavItem[T]],
-                      home: T,
-                      title: String,
-                      router: RouterCtl[T],
-                      titleDiv: Option[TagMod],
-                      beforeNav: Option[TagMod],
-                      afterNav: Option[TagMod],
-                      navIconSrc: Option[String])
+trait HorizonatalNav[T] {
 
-  case class State(displayMenuMobile: Option[Boolean])
+  case class HorizontalNavProps[T](current: T,
+                                   pages: Seq[NavigationPage[T]],
+                                   horizontalMenuItems: Seq[HorizontalNavItem[T]],
+                                   home: T,
+                                   title: String,
+                                   router: RouterCtl[T],
+                                   titleDiv: Option[TagMod],
+                                   beforeNav: Option[TagMod],
+                                   afterNav: Option[TagMod],
+                                   navIconSrc: Option[String])
 
-  class Backend($ : BackendScope[Props[T], State]) {
+  case class HorizontalNavState(displayMenuMobile: Option[Boolean])
+
+  class HorizontalNavBackend($ : BackendScope[HorizontalNavProps[T], HorizontalNavState]) {
 
     def navigate(page: T, router: RouterCtl[T]): Callback = {
       router.set(page)
@@ -219,7 +219,7 @@ class HorizonatalNav[T] {
     val x: Seq[(String, String)] = Seq(("",""), ("", ""))
     val y: (Seq[String], Seq[String]) = x.unzip
 
-    private def clsAndIconForState(state: State): (String, Icon) = {
+    private def clsAndIconForState(state: HorizontalNavState): (String, Icon) = {
       state.displayMenuMobile match {
         case Some(x) if x  => ("show", Icon.close)
         case Some(x) if !x => ("hide", Icon.menu)
@@ -227,7 +227,7 @@ class HorizonatalNav[T] {
       }
     }
 
-    def renderMainItem(props: Props[T], page: NavigationPage[T]) = {
+    def renderMainItem(props: HorizontalNavProps[T], page: NavigationPage[T]) = {
       <.div(
         <.a(
           <.li(
@@ -266,7 +266,7 @@ class HorizonatalNav[T] {
       )
     }
 
-    def render(props: Props[T], state: State) = {
+    def render(props: HorizontalNavProps[T], state: HorizontalNavState) = {
       val router = props.router
 
       val (cls, icon) = clsAndIconForState(state)
@@ -304,9 +304,9 @@ class HorizonatalNav[T] {
     }
   }
 
-  val component = ScalaComponent
-    .builder[Props[T]]("Navigation")
-    .initialState(State(Some(false)))
-    .renderBackend[Backend]
+  val horizonatalNavComponent = ScalaComponent
+    .builder[HorizontalNavProps[T]]("Navigation")
+    .initialState(HorizontalNavState(Some(false)))
+    .renderBackend[HorizontalNavBackend]
     .build
 }
