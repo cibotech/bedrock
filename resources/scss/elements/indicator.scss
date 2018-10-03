@@ -28,6 +28,9 @@
     top: -0.25em;
     pointer-events: none;
   }
+
+  transition: box-shadow 0.2s;
+
   &.clickable:hover {
     @include noselect-pointer();
     box-shadow: 0 0 2px 2px $shadow;

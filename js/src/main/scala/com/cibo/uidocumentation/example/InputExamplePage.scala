@@ -31,7 +31,9 @@
 package com.cibo.uidocumentation.example
 
 import com.cibo.bedrock.ReactGridStrict._
-import com.cibo.bedrock.elements.{Button, Icon, MenuButton, Text}
+import com.cibo.bedrock.elements.Button.{Mild, Primary, Repressed, Secondary, Success}
+import com.cibo.bedrock.elements.Size.{ExtraLarge, Large, Medium, Small}
+import com.cibo.bedrock.elements._
 import com.cibo.bedrock.input.Form._
 import com.cibo.bedrock.input._
 import com.cibo.uidocumentation.CodeExample
@@ -361,7 +363,30 @@ object InputExamplePage {
                      |  )
                      |)""".stripMargin
                 )
-              ))
+              )),
+              row(column(12)(
+                  <.h4("Button Groups"),
+                  {
+                    val buttonGroups = for{
+                      size <- Seq(Small, Medium, Large, ExtraLarge)
+                      style <- Seq(Primary, Secondary, Button.Error, Success, Mild, Repressed)
+                      rounded <- Seq(true, false)
+                      borders <- Seq(true, false)
+                    } yield {<.div(
+                      Padding(5),
+                      ButtonGroup(
+                        Seq(Button(Icon.chevronLeft), Button(1), Button(2), Button(3), Button(Icon.chevronRight)),
+                        significance = style,
+                        size = size,
+                        roundedEdges = rounded,
+                        borders = borders
+                      )
+                    )
+                    }
+                    buttonGroups.toTagMod
+                  }
+                )
+              )
             )
           )
         )

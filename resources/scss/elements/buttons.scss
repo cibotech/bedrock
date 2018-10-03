@@ -38,7 +38,6 @@ button {
     box-shadow: 1px 1px 2px 2px $shadow;
   }
 
-
   &.mild{
     box-shadow: 1px 1px 1px 1px $shadow-0;
     color: $font-color;
@@ -158,6 +157,117 @@ button {
 
     &:hover{
       max-height: 1000px;
+    }
+  }
+
+}
+
+.bd-button-group{
+
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  height: $button-group-base-height;
+
+  &.large{
+    height: $button-group-base-height * 1.5;
+  }
+
+  &.small{
+    height: $button-group-base-height * 0.75;
+  }
+
+  &.extra-large{
+    height: $button-group-base-height * 2.0;
+  }
+  overflow: hidden;
+
+  &.rounded{
+    border-radius: $button-border-raidius;
+  }
+
+  @mixin bg-button-hover-active($color) {
+    &:hover {
+      cursor: pointer;
+      background-color: darken($color, 5%);
+    }
+    &:active {
+      background-color: darken($color, 10%);
+    }
+  }
+
+  &.borders{
+    border: 1px solid $line-separator;
+    button{
+      border-right: 1px solid $line-separator;
+      &:last-child{
+        border-right: none;
+      }
+    }
+
+  }
+
+  button{
+    height: 100%;
+    display: flex;
+    margin: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+    @include bg-button-hover-active($primary-color-button);
+  }
+
+  //-----------------
+  &.secondary{
+    button {
+      transition: background-color 0.2s;
+      background-color: $secondary-color-button;
+      color: $contrast-with-secondary;
+      @include bg-button-hover-active($secondary-color-button);
+    }
+  }
+
+  &.mild{
+    button {
+      box-shadow: none;
+      color: $font-color;
+      background-color: $card-background;
+      @include bg-button-hover-active($card-background);
+    }
+  }
+
+  &.success{
+    button {
+      background-color: $success-color;
+      color: $contrast-with-status;
+      @include bg-button-hover-active($success-color);
+
+    }
+  }
+
+  &.error{
+    button {
+      background-color: $error-color;
+      color: $contrast-with-status;
+      @include bg-button-hover-active($error-color);
+
+    }
+  }
+
+  &.repressed{
+    button {
+
+      color: $font-color;
+      background-color: transparent;
+      box-shadow: none;
+      transition: background-color 0.1s;
+
+      &:hover {
+        background-color: $shadow;
+      }
+
+      &:active {
+        background-color: $shadow-1;
+      }
     }
   }
 
