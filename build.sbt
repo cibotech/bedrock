@@ -35,7 +35,7 @@ lazy val `bedrock-root` = project
   .in(file("."))
   .aggregate(bedrockJS, bedrockJVM, `bedrock-plots`)
   .settings(licenseSettings)
-  .settings(noPublish)
+  .settings(publishSettings)
 
 val commonSettings = Seq(
   organization := org
