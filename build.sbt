@@ -1,25 +1,41 @@
+import xerial.sbt.Sonatype._
+
 enablePlugins(ScalaJSPlugin)
 import _root_.org.scalajs.sbtplugin.ScalaJSPlugin.AutoImport._
 import sbt.Keys._
 
 val projectName = "bedrock"
 val scalaV = "2.12.4"
-val org = "com.cibo"
+val org = "io.github.cibotech"
 val scalatestV = "3.0.1"
 
 publishArtifact := false
 
 crossScalaVersions := Seq("2.12.4")
 
+val noPublish: Seq[Setting[_]] = Seq(
+    publishArtifact := false,
+    publish / skip := true,
+    publishLocal := {}
+)
+
+lazy val publishSettings: Seq[Setting[_]] = Seq(
+  organization := org,
+  organizationName := "CiBO Technologies",
+  organizationHomepage := Some(new java.net.URL("http://www.cibotechnologies.com")),
+  licenses += ("BSD 3-Clause", url("https://opensource.org/licenses/BSD-3-Clause")),
+  sonatypeProjectHosting := Some(GitHubHosting("cibotech", "bedrock", "devops@cibotechnologies.com")),
+  sonatypeCredentialHost := "s01.oss.sonatype.org",
+  sonatypeProfileName := "io.github.cibotech",
+  pomIncludeRepository := { _ => false },
+  publishTo := sonatypePublishToBundle.value,
+  publishMavenStyle := true)
+
 lazy val `bedrock-root` = project
   .in(file("."))
   .aggregate(bedrockJS, bedrockJVM, `bedrock-plots`)
   .settings(licenseSettings)
-  .settings(
-    publishArtifact := false,
-    publish := {},
-    publishLocal := {}
-  )
+  .settings(publishSettings)
 
 val commonSettings = Seq(
   organization := org
@@ -27,12 +43,7 @@ val commonSettings = Seq(
 
 lazy val sharedLibs = Seq()
 
-lazy val publishSettings = Seq(
-  bintrayOrganization := Some("cibotech"),
-  bintrayRepository := "public",
-  bintrayPackageLabels := Seq("scala", "ui"),
-  licenses += ("BSD 3-Clause", url("https://opensource.org/licenses/BSD-3-Clause"))
-)
+
 
 lazy val licenseSettings = Seq(
   homepage := Some(url("https://www.github.com/cibotech/bedrock")),
